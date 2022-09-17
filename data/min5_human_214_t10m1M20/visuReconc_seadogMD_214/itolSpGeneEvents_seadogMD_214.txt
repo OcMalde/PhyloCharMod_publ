@@ -1,0 +1,219 @@
+DATASET_SYMBOL
+SEPARATOR COMMA
+DATASET_LABEL,Genes-Sp events
+COLOR,#BA55D3
+MAXIMUM_SIZE,15
+DATA
+G2_0_1,2,1,#8A2BE2,1,0.5,Speciation
+G4_2_3,3,3,#FF00FF,1,0.5,Gene duplication
+G6_4_5,2,1,#8A2BE2,1,0.5,Speciation
+G8_6_7,2,1,#8A2BE2,1,0.5,Speciation
+G10_8_9,2,1,#8A2BE2,1,0.5,Speciation
+G13_11_12,2,1,#8A2BE2,1,0.5,Speciation
+G15_13_14,3,3,#FF00FF,1,0.5,Gene duplication
+G17_15_16,2,1,#8A2BE2,1,0.5,Speciation
+G19_17_18,2,1,#8A2BE2,1,0.5,Speciation
+G20_10_19,3,3,#FF00FF,1,0.5,Gene duplication
+G23_21_22,2,1,#8A2BE2,1,0.5,Speciation
+G25_23_24,2,1,#8A2BE2,1,0.5,Speciation
+G27_25_26,2,1,#8A2BE2,1,0.5,Speciation
+G29_27_28,2,1,#8A2BE2,1,0.5,Speciation
+G32_30_31,3,3,#FF00FF,1,0.5,Gene duplication
+G35_33_34,3,3,#FF00FF,1,0.5,Gene duplication
+G36_32_35,3,3,#FF00FF,1,0.5,Gene duplication
+G37_29_36,2,1,#8A2BE2,1,0.5,Speciation
+G38_20_37,3,3,#FF00FF,1,0.5,Gene duplication
+G41_39_40,2,1,#8A2BE2,1,0.5,Speciation
+G43_41_42,2,1,#8A2BE2,1,0.5,Speciation
+G45_43_44,2,1,#8A2BE2,1,0.5,Speciation
+G47_45_46,2,1,#8A2BE2,1,0.5,Speciation
+G50_48_49,3,3,#FF00FF,1,0.5,Gene duplication
+G52_50_51,3,3,#FF00FF,1,0.5,Gene duplication
+G53_47_52,2,1,#8A2BE2,1,0.5,Speciation
+G54_38_53,3,3,#FF00FF,1,0.5,Gene duplication
+G57_55_56,2,1,#8A2BE2,1,0.5,Speciation
+G59_57_58,2,1,#8A2BE2,1,0.5,Speciation
+G61_59_60,2,1,#8A2BE2,1,0.5,Speciation
+G63_61_62,2,1,#8A2BE2,1,0.5,Speciation
+G65_63_64,2,1,#8A2BE2,1,0.5,Speciation
+G66_54_65,3,3,#FF00FF,1,0.5,Gene duplication
+G68_66_67,2,1,#8A2BE2,1,0.5,Speciation
+G71_69_70,2,1,#8A2BE2,1,0.5,Speciation
+G73_71_72,2,1,#8A2BE2,1,0.5,Speciation
+G75_73_74,2,1,#8A2BE2,1,0.5,Speciation
+G77_75_76,2,1,#8A2BE2,1,0.5,Speciation
+G79_77_78,2,1,#8A2BE2,1,0.5,Speciation
+G82_80_81,2,1,#8A2BE2,1,0.5,Speciation
+G84_82_83,3,3,#FF00FF,1,0.5,Gene duplication
+G86_84_85,2,1,#8A2BE2,1,0.5,Speciation
+G88_86_87,2,1,#8A2BE2,1,0.5,Speciation
+G90_88_89,2,1,#8A2BE2,1,0.5,Speciation
+G91_79_90,3,3,#FF00FF,1,0.5,Gene duplication
+G93_91_92,2,1,#8A2BE2,1,0.5,Speciation
+G95_93_94,2,1,#8A2BE2,1,0.5,Speciation
+G96_68_95,3,3,#FF00FF,1,0.5,Gene duplication
+G98_96_97,3,3,#FF00FF,1,0.5,Gene duplication
+G101_99_100,2,1,#8A2BE2,1,0.5,Speciation
+G103_101_102,2,1,#8A2BE2,1,0.5,Speciation
+G105_103_104,2,1,#8A2BE2,1,0.5,Speciation
+G107_105_106,2,1,#8A2BE2,1,0.5,Speciation
+G109_107_108,2,1,#8A2BE2,1,0.5,Speciation
+G112_110_111,2,1,#8A2BE2,1,0.5,Speciation
+G114_112_113,3,3,#FF00FF,1,0.5,Gene duplication
+G116_114_115,2,1,#8A2BE2,1,0.5,Speciation
+G118_116_117,2,1,#8A2BE2,1,0.5,Speciation
+G120_118_119,2,1,#8A2BE2,1,0.5,Speciation
+G121_109_120,3,3,#FF00FF,1,0.5,Gene duplication
+G123_121_122,2,1,#8A2BE2,1,0.5,Speciation
+G126_124_125,2,1,#8A2BE2,1,0.5,Speciation
+G128_126_127,3,3,#FF00FF,1,0.5,Gene duplication
+G130_128_129,2,1,#8A2BE2,1,0.5,Speciation
+G132_130_131,2,1,#8A2BE2,1,0.5,Speciation
+G134_132_133,2,1,#8A2BE2,1,0.5,Speciation
+G136_134_135,2,1,#8A2BE2,1,0.5,Speciation
+G137_123_136,3,3,#FF00FF,1,0.5,Gene duplication
+G138_98_137,3,3,#FF00FF,1,0.5,Gene duplication
+G141_139_140,2,1,#8A2BE2,1,0.5,Speciation
+G143_141_142,2,1,#8A2BE2,1,0.5,Speciation
+G145_143_144,2,1,#8A2BE2,1,0.5,Speciation
+G147_145_146,2,1,#8A2BE2,1,0.5,Speciation
+G149_147_148,2,1,#8A2BE2,1,0.5,Speciation
+G152_150_151,2,1,#8A2BE2,1,0.5,Speciation
+G154_152_153,3,3,#FF00FF,1,0.5,Gene duplication
+G156_154_155,2,1,#8A2BE2,1,0.5,Speciation
+G158_156_157,2,1,#8A2BE2,1,0.5,Speciation
+G160_158_159,2,1,#8A2BE2,1,0.5,Speciation
+G161_149_160,3,3,#FF00FF,1,0.5,Gene duplication
+G163_161_162,2,1,#8A2BE2,1,0.5,Speciation
+G165_163_164,2,1,#8A2BE2,1,0.5,Speciation
+G166_138_165,3,3,#FF00FF,1,0.5,Gene duplication
+G169_167_168,2,1,#8A2BE2,1,0.5,Speciation
+G171_169_170,2,1,#8A2BE2,1,0.5,Speciation
+G173_171_172,2,1,#8A2BE2,1,0.5,Speciation
+G175_173_174,2,1,#8A2BE2,1,0.5,Speciation
+G177_175_176,2,1,#8A2BE2,1,0.5,Speciation
+G180_178_179,2,1,#8A2BE2,1,0.5,Speciation
+G182_180_181,2,1,#8A2BE2,1,0.5,Speciation
+G184_182_183,2,1,#8A2BE2,1,0.5,Speciation
+G186_184_185,2,1,#8A2BE2,1,0.5,Speciation
+G187_177_186,3,3,#FF00FF,1,0.5,Gene duplication
+G189_187_188,2,1,#8A2BE2,1,0.5,Speciation
+G190_166_189,3,3,#FF00FF,1,0.5,Gene duplication
+G193_191_192,2,1,#8A2BE2,1,0.5,Speciation
+G195_193_194,3,3,#FF00FF,1,0.5,Gene duplication
+G197_195_196,2,1,#8A2BE2,1,0.5,Speciation
+G199_197_198,2,1,#8A2BE2,1,0.5,Speciation
+G201_199_200,2,1,#8A2BE2,1,0.5,Speciation
+G204_202_203,2,1,#8A2BE2,1,0.5,Speciation
+G206_204_205,2,1,#8A2BE2,1,0.5,Speciation
+G208_206_207,2,1,#8A2BE2,1,0.5,Speciation
+G210_208_209,2,1,#8A2BE2,1,0.5,Speciation
+G211_201_210,3,3,#FF00FF,1,0.5,Gene duplication
+G212_190_211,3,3,#FF00FF,1,0.5,Gene duplication
+G215_213_214,2,1,#8A2BE2,1,0.5,Speciation
+G217_215_216,2,1,#8A2BE2,1,0.5,Speciation
+G219_217_218,2,1,#8A2BE2,1,0.5,Speciation
+G221_219_220,2,1,#8A2BE2,1,0.5,Speciation
+G224_222_223,3,3,#FF00FF,1,0.5,Gene duplication
+G225_221_224,2,1,#8A2BE2,1,0.5,Speciation
+G228_226_227,2,1,#8A2BE2,1,0.5,Speciation
+G230_228_229,3,3,#FF00FF,1,0.5,Gene duplication
+G232_230_231,2,1,#8A2BE2,1,0.5,Speciation
+G234_232_233,2,1,#8A2BE2,1,0.5,Speciation
+G235_225_234,3,3,#FF00FF,1,0.5,Gene duplication
+G237_235_236,2,1,#8A2BE2,1,0.5,Speciation
+G239_237_238,2,1,#8A2BE2,1,0.5,Speciation
+G242_240_241,2,1,#8A2BE2,1,0.5,Speciation
+G244_242_243,2,1,#8A2BE2,1,0.5,Speciation
+G246_244_245,2,1,#8A2BE2,1,0.5,Speciation
+G248_246_247,2,1,#8A2BE2,1,0.5,Speciation
+G250_248_249,2,1,#8A2BE2,1,0.5,Speciation
+G252_250_251,2,1,#8A2BE2,1,0.5,Speciation
+G253_239_252,3,3,#FF00FF,1,0.5,Gene duplication
+G256_254_255,2,1,#8A2BE2,1,0.5,Speciation
+G258_256_257,2,1,#8A2BE2,1,0.5,Speciation
+G260_258_259,2,1,#8A2BE2,1,0.5,Speciation
+G262_260_261,2,1,#8A2BE2,1,0.5,Speciation
+G264_262_263,2,1,#8A2BE2,1,0.5,Speciation
+G267_265_266,2,1,#8A2BE2,1,0.5,Speciation
+G269_267_268,2,1,#8A2BE2,1,0.5,Speciation
+G271_269_270,2,1,#8A2BE2,1,0.5,Speciation
+G273_271_272,2,1,#8A2BE2,1,0.5,Speciation
+G274_264_273,3,3,#FF00FF,1,0.5,Gene duplication
+G276_274_275,2,1,#8A2BE2,1,0.5,Speciation
+G279_277_278,2,1,#8A2BE2,1,0.5,Speciation
+G281_279_280,2,1,#8A2BE2,1,0.5,Speciation
+G283_281_282,2,1,#8A2BE2,1,0.5,Speciation
+G285_283_284,2,1,#8A2BE2,1,0.5,Speciation
+G288_286_287,2,1,#8A2BE2,1,0.5,Speciation
+G289_285_288,3,3,#FF00FF,1,0.5,Gene duplication
+G291_289_290,2,1,#8A2BE2,1,0.5,Speciation
+G292_276_291,3,3,#FF00FF,1,0.5,Gene duplication
+G293_253_292,3,3,#FF00FF,1,0.5,Gene duplication
+G294_212_293,3,3,#FF00FF,1,0.5,Gene duplication
+G297_295_296,2,1,#8A2BE2,1,0.5,Speciation
+G299_297_298,2,1,#8A2BE2,1,0.5,Speciation
+G301_299_300,2,1,#8A2BE2,1,0.5,Speciation
+G303_301_302,2,1,#8A2BE2,1,0.5,Speciation
+G306_304_305,3,3,#FF00FF,1,0.5,Gene duplication
+G307_303_306,2,1,#8A2BE2,1,0.5,Speciation
+G308_294_307,3,3,#FF00FF,1,0.5,Gene duplication
+G311_309_310,2,1,#8A2BE2,1,0.5,Speciation
+G313_311_312,3,3,#FF00FF,1,0.5,Gene duplication
+G315_313_314,2,1,#8A2BE2,1,0.5,Speciation
+G317_315_316,2,1,#8A2BE2,1,0.5,Speciation
+G319_317_318,2,1,#8A2BE2,1,0.5,Speciation
+G322_320_321,2,1,#8A2BE2,1,0.5,Speciation
+G324_322_323,3,3,#FF00FF,1,0.5,Gene duplication
+G326_324_325,2,1,#8A2BE2,1,0.5,Speciation
+G328_326_327,2,1,#8A2BE2,1,0.5,Speciation
+G329_319_328,3,3,#FF00FF,1,0.5,Gene duplication
+G332_330_331,2,1,#8A2BE2,1,0.5,Speciation
+G334_332_333,3,3,#FF00FF,1,0.5,Gene duplication
+G336_334_335,2,1,#8A2BE2,1,0.5,Speciation
+G338_336_337,2,1,#8A2BE2,1,0.5,Speciation
+G340_338_339,2,1,#8A2BE2,1,0.5,Speciation
+G341_329_340,3,3,#FF00FF,1,0.5,Gene duplication
+G343_341_342,2,1,#8A2BE2,1,0.5,Speciation
+G344_308_343,3,3,#FF00FF,1,0.5,Gene duplication
+G347_345_346,2,1,#8A2BE2,1,0.5,Speciation
+G349_347_348,3,3,#FF00FF,1,0.5,Gene duplication
+G351_349_350,2,1,#8A2BE2,1,0.5,Speciation
+G353_351_352,2,1,#8A2BE2,1,0.5,Speciation
+G356_354_355,3,3,#FF00FF,1,0.5,Gene duplication
+G357_353_356,2,1,#8A2BE2,1,0.5,Speciation
+G359_357_358,2,1,#8A2BE2,1,0.5,Speciation
+G361_359_360,2,1,#8A2BE2,1,0.5,Speciation
+G363_361_362,3,3,#FF00FF,1,0.5,Gene duplication
+G366_364_365,2,1,#8A2BE2,1,0.5,Speciation
+G368_366_367,2,1,#8A2BE2,1,0.5,Speciation
+G370_368_369,2,1,#8A2BE2,1,0.5,Speciation
+G372_370_371,2,1,#8A2BE2,1,0.5,Speciation
+G375_373_374,3,3,#FF00FF,1,0.5,Gene duplication
+G376_372_375,2,1,#8A2BE2,1,0.5,Speciation
+G378_376_377,2,1,#8A2BE2,1,0.5,Speciation
+G381_379_380,2,1,#8A2BE2,1,0.5,Speciation
+G382_378_381,2,1,#8A2BE2,1,0.5,Speciation
+G383_363_382,3,3,#FF00FF,1,0.5,Gene duplication
+G387_385_386,2,1,#8A2BE2,1,0.5,Speciation
+G391_389_390,2,1,#8A2BE2,1,0.5,Speciation
+G393_391_392,2,1,#8A2BE2,1,0.5,Speciation
+G395_393_394,2,1,#8A2BE2,1,0.5,Speciation
+G397_395_396,2,1,#8A2BE2,1,0.5,Speciation
+G400_398_399,2,1,#8A2BE2,1,0.5,Speciation
+G401_397_400,3,3,#FF00FF,1,0.5,Gene duplication
+G403_401_402,2,1,#8A2BE2,1,0.5,Speciation
+G406_404_405,2,1,#8A2BE2,1,0.5,Speciation
+G409_407_408,3,3,#FF00FF,1,0.5,Gene duplication
+G415_413_414,2,1,#8A2BE2,1,0.5,Speciation
+G416_412_415,3,3,#FF00FF,1,0.5,Gene duplication
+G417_411_416,2,1,#8A2BE2,1,0.5,Speciation
+G418_410_417,2,1,#8A2BE2,1,0.5,Speciation
+G419_409_418,2,1,#8A2BE2,1,0.5,Speciation
+G420_406_419,3,3,#FF00FF,1,0.5,Gene duplication
+G421_403_420,3,3,#FF00FF,1,0.5,Gene duplication
+G422_388_421,2,1,#8A2BE2,1,0.5,Speciation
+G423_387_422,2,1,#8A2BE2,1,0.5,Speciation
+G424_384_423,3,3,#FF00FF,1,0.5,Gene duplication
+G425_383_424,3,3,#FF00FF,1,0.5,Gene duplication
+G426_344_425,3,3,#FF00FF,1,0.5,Gene duplication

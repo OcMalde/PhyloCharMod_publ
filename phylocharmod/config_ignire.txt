@@ -1,0 +1,20 @@
+[PROGRAMS]
+MUSCLE : muscle
+TRIMAL: trimal
+PHYML : phyml
+TREEFIX : treefix
+SEADOG-MD : SEADOG-MD
+PASTML : pastml
+PALOMA-2 : paloma-2
+PLMA2DOT : /local/bin/plma2dot
+
+[ENV]
+MUSCLE :
+TRIMAL:
+PHYML :
+TREEFIX: source /usr/etc/profile.d/conda.sh; conda activate test_treefix ; 
+SEADOG-MD:
+PASTML :
+PALOMA-2 :
+PLMA2DOT : 
+

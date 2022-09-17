@@ -48,18 +48,6 @@ If not, their path must be specified in the config file ;
 
 [Conda package](https://anaconda.org/bioconda/muscle)
 
-#### Trimal
-
-[Trimal](http://trimal.cgenomics.org/), a tool for the automated removal of spurious sequences or poorly aligned regions from a multiple sequence alignment. 
-
-[Conda package](https://anaconda.org/bioconda/trimal)
-
-#### PRANK (no required at the moment)
-
-[PRANK](http://wasabiapp.org/software/prank/), a probabilistic multiple alignment program used to align the gene sequences.
-
-[Conda package](https://anaconda.org/bioconda/prank)
-
 #### PhyML
 
 [PhyML](https://github.com/stephaneguindon/phyml), maximum likelihood phylogenetic inference for the gene and the module trees.
@@ -71,10 +59,6 @@ If not, their path must be specified in the config file ;
 [TreeFix](https://www.cs.hmc.edu/~yjw/software/treefix/), Statistically Informed Gene Tree Error Correction Using Species Trees.
 
 [Conda package](https://anaconda.org/OcMalde/treefix)
-
-#### Paloma-2
-
-[Paloma](http://tools.genouest.org/tools/protomata/learn/), Partial Local Multiple alignment, for the module segmentation of our sequences.
 
 #### SEADOG-MD
 

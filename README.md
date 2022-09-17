@@ -40,8 +40,6 @@ If not, their path must be specified in the config file ;
 
 [Bio](https://github.com/biopython/biopython), the Biopython Project is an international association of developers of freely available Python tools for computational molecular biology.
 
-[Bioservices](https://pypi.org/project/bioservices/), (only for annotations recuperation, if annotations are provided an other way, its not necessary.
-
 #### Muscle
 
 [Muscle](http://www.drive5.com/muscle/), one of the best-performing multiple alignment programs.

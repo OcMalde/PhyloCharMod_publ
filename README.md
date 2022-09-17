@@ -20,7 +20,7 @@ An original approach to characterize functional motifs based on:
 
 ### To use on you own data :
 
-``python3 phylocharmod.phylocharmod.py```
+```python3 phylocharmod.phylocharmod.py```
 
 (see --help for details)
 
@@ -72,17 +72,13 @@ If not, their path must be specified in the config file ;
 
 [Conda package](https://anaconda.org/OcMalde/treefix)
 
-#### Paloma
+#### Paloma-2
 
 [Paloma](http://tools.genouest.org/tools/protomata/learn/), Partial Local Multiple alignment, for the module segmentation of our sequences.
-
-???
 
 #### SEADOG-MD
 
 [SEADOG-MD](https://compbio.engr.uconn.edu/software/seadog/), for DGS-reconciliation.
-
-???
 
 #### PastML
 

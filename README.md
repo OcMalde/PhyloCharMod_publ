@@ -18,6 +18,12 @@ An original approach to characterize functional motifs based on:
 
 ```python3 ../../phylocharmod/integrate_3phylo.py seadogMD_214.output gene_tree_214/214.tree --pastml_tab acs_dir_seadogMD_214_gene/pastml_seadogMD_214_gene_leaf_Manual_214_combined_ancestral_states.tab --domains_csv domains_214.csv --itol``` 
 
+### To use on you own data :
+
+``python3 phylocharmod.phylocharmod.py```
+
+(see --help for details)
+
 ## Dependencies
 
 All these programs are necessary to run *PhyloCharMod*, and must be in ;
@@ -83,12 +89,6 @@ If not, their path must be specified in the config file ;
 [PastML](https://pastml.pasteur.fr/), for ancestral characters inference.
 
 [Pip package](https://pypi.org/project/pastml/)
-
-## Usage
-
-```python3 phylocharmod myfasta.fasta gene_functions.csv```
-
-How it work, figure, schemas, results
 
 
 

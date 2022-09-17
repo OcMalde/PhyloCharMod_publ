@@ -22,7 +22,7 @@ An original approach to characterize functional motifs based on:
 
 ```python3 phylocharmod.phylocharmod.py```
 
-(see --help for details)
+(see ```--help``` for details)
 
 ## Dependencies
 

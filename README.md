@@ -15,6 +15,7 @@ An original approach to characterize functional motifs based on:
 ### To replicate publication results :
 
 ```cd data/min5_human_214_t10m1M20/```
+
 ```python3 ../../phylocharmod/integrate_3phylo.py seadogMD_214.output gene_tree_214/214.tree --pastml_tab acs_dir_seadogMD_214_gene/pastml_seadogMD_214_gene_leaf_Manual_214_combined_ancestral_states.tab --domains_csv domains_214.csv --itol``` 
 
 ## Dependencies

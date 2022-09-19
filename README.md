@@ -4,7 +4,7 @@ Scripts and data for publication
 ## Phylogenetic prediction of functional sequence modules
 
 An original approach to characterize functional motifs based on:
-1. Detection of conserved sequenc modules (using Partial Local Multiple Alignment)
+1. Detection of conserved sequence modules (using Partial Local Multiple Alignment)
 2. Phylogenetic inference of species/genes/modules/functions evolutionary histories
 3. Identification of co-appearances of modules and functions
 

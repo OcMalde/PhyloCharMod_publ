@@ -1,5 +1,8 @@
-
 #!/bin/python3
+
+"""
+Regroup protein sequences of a same gene (isoforms) by using their annotations in a gff annotation file
+"""
 
 import argparse
 import os
@@ -15,6 +18,16 @@ def fasta_fast_parse(fasta_file) -> list:
     """
     Fast fasta parser
     https://www.biostars.org/p/710/ modified
+    
+    Parameters
+    ----------
+    fasta_file : str
+        Name of a file in fasta format
+        
+    Returns
+    -------
+    seq_list : list
+        List of sequences, a sequence being a tuple (header,sequence)
     """
     fh = open(fasta_file)
     seq_list = []
@@ -31,6 +44,20 @@ def get_refseq(dict_refseq_fasta, seq_list) -> tuple:
     """
     Extract only refseq from seq_list
     where a seq is a tuple (header, sequence)
+    
+    Parameters
+    ----------
+    dict_refseq_fasta : dict
+        Dictionary with refseq id (str) as key and corresponding fasta as value (could be empty)
+    seq_list : list
+        List of sequences, a sequence being a tuple (header,sequence)
+        
+    Returns
+    -------
+    dict_refseq_fasta : dict
+        Dictionary with refseq id (str) as key and corresponding fasta as value (completed)
+    refseq_list : list
+        List of refseq, a refseq being a str
     """
     refseq_list = []
     for seq in seq_list:
@@ -44,6 +71,16 @@ def makeAssocDict(assocF) -> dict:
     Open an association file and return his dictionnary
     association file : taxid,assoc
     dictionnary : {taxid : assoc}
+    
+    Parameters
+    ----------
+    assocF : str
+        Name of a csv file containing a set of association of two elements
+        
+    Returns
+    -------
+    dic_taxid_assoc : dict
+        Dictionary with taxid (str) as key and corresponding association as value (here, a genome assembly)
     """
     dic_taxid_assoc = {}
     with open(assocF, "r") as a_file:
@@ -58,6 +95,18 @@ def makeAssocDict(assocF) -> dict:
 def search_locus_gff(refseq_list, gff_file) -> dict:
     """
     Search gff file for our refseq of interest
+    
+    Parameters
+    ----------
+    refseq_list : list
+        List of refseq, a refseq being a str
+    gff_file : str
+        Name of a file in gff format
+        
+    Returns
+    -------
+    dict_refseq_locus : dict
+        Dictionary with refseq (str) as key and corresponding locus information (in a dict) as value
     """
     dict_refseq_locus = {refseq : [] for refseq in refseq_list} 
     with open(gff_file) as gff_f:
@@ -88,6 +137,16 @@ def make_dic_locus_protList(dict_refseq_locus) -> dict:
     Compare the gff feature of all refseq,
     And build a dictionnary
     {locus : [proteins list]}
+    
+    Parameters
+    ----------
+    dict_refseq_locus : dict
+        Dictionary with refseq (str) as key and corresponding locus information (in a dict) as value
+        
+    Returns
+    -------
+    dict_locus_protList : dict
+        Dictionary with locus name (str) as key and corresponding protein list as value
     """
     dic_locus_protList = {}
     loc_id = 0
@@ -114,6 +173,18 @@ def same_locus(locus_1, locus_2) -> bool:
     """
     Compare if 2 locus info dict overlapp
     That means they are on the same sequence, same strand and overlapp on their positions
+    
+    Parameters
+    ----------
+    locus_1 : dict
+        Dictionary with locus informations (seqid, strand, start, end)
+    locus_2 : dict
+        Dictionary with locus informations (seqid, strand, start, end)
+        
+    Returns
+    -------
+    same : bool
+        Boolean value representing the overlap or not between two locus
     """
     same = False
     if locus_1["seqid"] == locus_2["seqid"]:
@@ -129,6 +200,15 @@ def same_locus(locus_1, locus_2) -> bool:
 def write_fasta_directory(dict_taxid_dictlocus, dict_refseq_fasta, directory) -> None:
     """
     Write directory containing fasta files
+    
+    Parameters
+    ----------
+    dict_taxid_dictlocus : dict
+        Dictionary with taxid as key and associated locus dictionary as value
+    dict_refseq_fasta : dict
+        Dictionary with refseq id as key and fasta as value
+    directory : str
+        Directory name
     """
     all_para_file = open(f"{directory}/longest_isoform.fasta", "w+")
     csv_str = ""
@@ -153,6 +233,16 @@ def write_fasta_directory(dict_taxid_dictlocus, dict_refseq_fasta, directory) ->
 def getFastaNCBI(ncbi_id) -> str:
     """
     Search with ncbi api, the sequence on fasta format of the corresponding ncbi id
+    
+    Parameters
+    ----------
+    ncbi_id : str
+        NCBI identifiant of a sequence (e.g., refseq)
+        
+    Returns
+    -------
+    fasta : str
+        Sequence formated in fasta 
     """
     entrez = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&&id="
     rettype = "&rettype=fasta"
@@ -162,6 +252,13 @@ def getFastaNCBI(ncbi_id) -> str:
 def writeSpParaFile(dict_taxid_dictlocus, fn) -> None:
     """
     Write a csv file with the number of paralogs of each species
+    
+    Parameters
+    ----------
+    dict_taxid_dictlocus : dict
+        Dictionary with taxid as key and associated locus dictionary as value
+    fn : str
+        Name of the file to write
     """
     with open(fn, "w") as o_file:
         for sp, dict_locus in dict_taxid_dictlocus.items():
@@ -171,6 +268,15 @@ def write_itol_nb(dict_taxid_dictlocus, dict_taxid_refseq, dn) -> None:
     """
     Write itol barchart file(s) 
     with number of sequences (og) per species, and number of uniq locus (ie paralogs)
+    
+    Parameters
+    ----------
+    dict_taxid_dictlocus : dict
+        Dictionary with taxid as key and associated locus dictionary as value
+    dict_taxid_refseq : dict
+        Dictionary with taxid as key and corresponding refseq as value
+    dn : str
+        Name of the directory to write files
     """
     # Init
     seq_itol_string = f"DATASET_SIMPLEBAR\nSEPARATOR COMMA\nDATASET_LABEL,Nb_sequences\nCOLOR,#9370DB\nDATA\n"

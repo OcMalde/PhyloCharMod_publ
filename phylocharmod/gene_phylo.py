@@ -1,5 +1,8 @@
 #!/bin/python3
 
+"""
+Gene tree inference from a fasta file and a species tree
+"""
 
 import os
 import argparse
@@ -18,6 +21,20 @@ def whole_phylo(fasta_file, species_tree) -> tuple:
     Make the whole phylogeny for the given fasta file
     Using the corresponding species tree to correct it
     Return a tuple (process, gene_tree_fn)
+    
+    Parameters
+    ----------
+    fasta_file : str
+        Name of a file in fasta format
+    species_tree : str
+        Name of a file containing a species tree (corresponding the sequences in the `fasta_file`), in the newick format  
+        
+    Returns
+    -------
+    compute_bl_process : process
+        Process object corresponding the branch length calcul
+    treefix_bl_tree : str
+        Name of the file where the corrected tree with branch length will be written (at the end of the processus), in the newick format  
     """
     # Prepare directory
     gene_dir = f"{fasta_file.parents[0]}/gene_phylo_dir_{fasta_file.stem}"
@@ -69,6 +86,18 @@ def whole_phylo(fasta_file, species_tree) -> tuple:
 def reroot_tree(rooted_tree_fn, non_rooted_tree_fn) -> str:
     """
     Reroot a tree (with more info), based on a rooted tree with correct topology
+    
+    Parameters
+    ----------
+    rooted_tree_fn : str
+        Name of a file containing a rooted tree in newick format
+    non_rooted_tree_fn : str
+        Name of a file containing an unrooted tree in newick format
+        
+    Returns
+    -------
+    new_tree : str
+        Name of a file containing a rooted, resolved tree in newick format
     """
     rooted_tree = Tree(str(rooted_tree_fn), format=8)
     non_rooted_tree = Tree(str(non_rooted_tree_fn), format=2)

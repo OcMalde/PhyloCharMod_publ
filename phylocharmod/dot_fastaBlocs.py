@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-@author: odennler
+Extract blocks from a dot file (output of paloma-2 formated with xdot on plma) and build a module fasta file for valide blocks.
 """
 
 
@@ -19,6 +19,23 @@ from pathlib import Path
 def extract_block_sequence(plma_input_file, blockList_sequence_num_ids, seqNumber_seqName):
     """
     Extract for each PLMA block its sequence found in the input sequences.
+    
+    Parameters
+    ----------
+    plma_input_file : str
+        Name of a plma file in dot format
+    blockList_sequence_num_ids : list
+        List of blocks with all informations (could be empty)
+    seqNumber_seqName : dict
+        Dictionary with sequence number as key and corresponding sequence name as value (could be empty)
+    
+        
+    Returns
+    -------
+    blockList_sequence_num_ids : list
+        List of blocks with all informations (completed)
+    seqNumber_seqName : dict
+        Dictionary with sequence number as key and corresponding sequence name as value (completed)
     """
     concatDotFile = functools.reduce(lambda line1, line2: line1.strip()+line2.strip(), open(plma_input_file,'r'))
     # Create a list with each subgraph in it by splitting on subgraph.
@@ -63,6 +80,19 @@ def extract_block_sequence(plma_input_file, blockList_sequence_num_ids, seqNumbe
 def writeFastas(blockList_sequence_num_ids, proteinNameDict, thres, fileName, directory) -> None:
     """
     Build a fasta file for each paloma bloc
+    
+    Parameters
+    ----------
+    blockList_sequence_num_ids : list
+        List of blocks with all informations
+    proteinNameDict : dict
+        Dictionary with sequence number as key and corresponding sequence name as value
+    thres : int
+         Length threshold for minimal module length
+    fileName : str
+        Name of input file, used to name directory and necessary for SEADOG-MD formating (i.e., name of the family)
+    directory : str
+        Name of the module directory that will be written
     """
     family = Path(fileName).stem.split("_")[0]
     if not os.path.exists(directory):
@@ -98,6 +128,18 @@ def writeFastas(blockList_sequence_num_ids, proteinNameDict, thres, fileName, di
 #==============================================================================
 
 def make_module_directory(dot_file, thres, module_directory) -> None:
+    """
+    Extract blocs from a dot file and write the corresponding fasta files
+    
+    Parameters
+    ----------
+    dot_file : str
+        Name of a file in dot format
+    thres : int
+         Length threshold for minimal module length
+    module_directory : str
+        Name of the directory where bloc/modules fasta files will be written  
+    """
     blocks_list, num_name = [], {}
     blocks_list, num_name = extract_block_sequence(dot_file, blocks_list, num_name)
     writeFastas(blocks_list, num_name, thres, dot_file, module_directory)

@@ -1,5 +1,9 @@
 #!/bin/python3
 
+"""
+Domains and motifs scan for protein sequences
+"""
+
 import argparse
 import os
 import shutil
@@ -16,6 +20,32 @@ confProDy(verbosity="critical")
 #==============================================================================
         
 class protein:
+    """
+    Description of a protein sequence with domaines compositions
+    
+    Attributes
+    ----------
+    header : str
+        Header in fasta format
+    sequence : str
+        Sequence of the protein
+    name: str
+        Name of the protein (i.e., `header` without '>')
+    domain_list: list
+        List of the domains of the protein, a `domain` is described as dictionary with a name, a start, a stop and a sequence 
+    
+    Methods
+    -------
+    addDomain 
+        Add a domain to the `domain_list`
+    scanProsite
+        Scan the protein `sequence` with signatures of the Prosite database
+    scanDisorder
+        Scan the protein `sequence` for disorder regions
+    scanPfam
+        Scan the protein `sequence` with signatures of the Pfam database
+        
+    """
     
     def __init__(self, header, sequence):
         self.header = header
@@ -58,6 +88,16 @@ def get_fasta_from_file(multi_fasta) -> list:
     """
     Read the multi fasta file
     And parse it to return a protein list
+    
+    Parameters
+    ----------
+    multi_fasta : str
+        Name of a file in fasta format
+        
+    Returns
+    -------
+    protein_list : list
+        List of `protein` object
     """
     protein_list = []
     sequence = ""
@@ -78,6 +118,18 @@ def get_domains_fasta(protein_list, family_name) -> dict:
     Regroup domains sequencces perr domains
     And  return them in a dict
     {domain : [sequence of this domainss list]}
+    
+    Parameters
+    ----------
+    protein_list : list
+        List of `protein` object
+    family_name : str
+        Name of the family studied (in general, the name of the initial fasta file)
+        
+    Returns
+    -------
+    dict_domain_domainSeqList : dict
+        Dictionary with domain name as key and list of associated sequences (1 sequence for 1 instance of the domain) as value
     """
     dict_domain_domainSeqList = {}
     for protein in protein_list:
@@ -102,6 +154,13 @@ def write_csv(protein_list, filename) -> None:
     """
     Write a csv output file
     protein, moduleName, start, stop
+    
+    Parameters
+    ----------
+    protein_list : list
+        List of `protein` object
+    filename : str
+        Name of the csv file to write
     """
     with open(filename, "w+") as csv_file:
         for prot in protein_list:
@@ -111,6 +170,15 @@ def write_csv(protein_list, filename) -> None:
 def write_domain_fastas(dict_domain_domainSeqList, family_name, directory) -> None:
     """
     Build a fasta file for each paloma bloc
+    
+    Parameters
+    ----------
+    dict_domain_domainSeqList : dict
+        Dictionary with domain name as key and list of associated sequences (1 sequence for 1 instance of the domain) as value
+    family_name : str
+        Name of the family studied (in general, the name of the initial fasta file)
+    directory : str
+        Name of the directory where domain files (fasta an tree) will be written
     """
     if not os.path.exists(directory):
         os.makedirs(directory)
@@ -138,6 +206,20 @@ def domains_fasta_aln_phylo(multi_fasta) -> tuple:
     """
     Read fasta, search for domains (pfam / proste)
     then build 1 fasta per domains (reconciliation format)
+    
+    Parameters
+    ----------
+    multi_fasta : str
+        Name of a file in fasta format
+        
+    Returns
+    -------
+    process_list : list
+        List of process (one process for one MSA+phylogeny of one domain)
+    directory: str
+        Name of the directory containing domain files
+    out_fn : str
+        Name of the file with protein and domain composition description, in csv format
     """
     # Init files names
     multi_fasta = Path(multi_fasta).resolve()
@@ -172,6 +254,20 @@ def domains_fasta_aln_phylo(multi_fasta) -> tuple:
 def correct_domains_tree(domains_fasta_tree_dn, gene_tree_fn) -> tuple:
     """
     Use treefix to correct domains trees of a directory, with treefix, using the gene tree
+    
+    Parameters
+    ----------
+    domains_fasta_tree_dn : str
+        Name of a directory containing fasta, MSA and tree for domains
+    gene_tree_fn : str
+        Name of a file containing the associated gene tree, in newick format
+        
+    Returns
+    -------
+    process_list : list
+        List of process (one process for one phylogeny correction of one domain)
+    tree_path_fn : str
+        Name of txt file with all domain tree paths (can be use by SEADOG-MD)    
     """
     abs_path = ""
     process_list = []

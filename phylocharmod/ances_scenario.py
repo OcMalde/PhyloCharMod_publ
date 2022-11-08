@@ -1,6 +1,8 @@
 #!/bin/python3
 
-# Infers an ancestral scenario for the known leafs functions
+"""
+Infers an ancestral scenario for the known leafs functions.
+"""
 
 import os
 import subprocess
@@ -17,6 +19,22 @@ from pathlib import Path
 def acs_inference(gene_tree_fn, gene_functions_csv, sp_gene_event_csv) -> tuple:
     """
     Ancestral scenario inference for a gene_tree and his leaf associated functions (from a csv)
+    
+    Parameters
+    ----------
+    gene_tree_fn : str
+        Name of a tree file in newick format
+    gene_functions_csv : str
+        Name of a csv file, with gene names and associated functions
+    sp_gene_event_csv : str
+        Name of a csv file, with species-gene event (from DGS reconciliation)
+        
+    Returns
+    -------
+    ances_scenario_process : process
+        Process object of the ancestral scenario reconstruction
+    pastML_tab_fn : str
+        Name of the tab file where pastML scenarios will be written (when process will be finish)
     """
     # Prepare work directory
     acs_dir = f"{gene_tree_fn.parents[0]}/acs_dir_{gene_tree_fn.stem}"
@@ -44,6 +62,22 @@ def write_pastml_csv(tree_file, leaf_functions_csv, sp_gene_event_csv) -> tuple:
     https://github.com/evolbioinfo/pastml
     id, function1, function2
     leaf_node_name, (0|1||), (0|1||), ...
+    
+    Parameters
+    ----------
+    tree_file : str
+        Name of a tree file in newick format
+    leaf_functions_csv : str
+        Name of a csv file, with gene names and associated functions
+    sp_gene_event_csv : str
+        Name of a csv file, with species-gene event (from DGS reconciliation)
+        
+    Returns
+    -------
+    tree_file : str
+        Name of the tree file
+    pastml_csv : str
+        Name of the csv file with annotations, formated to be used as a PastML input
     """
     # Load the tree
     tree = Tree(str(tree_file), format=1)
@@ -130,6 +164,18 @@ def search_in_orthologs(dict_gene_spGeneEvent, tree) -> list:
     = the same gene, only in different species = orthologs 1:1
     Return a list where each element is a list of these in orthologs genes
     (so each element represent a paralogs and his representants in diverses species)
+    
+    Parameters
+    ----------
+    dict_gene_spGeneEvent : dict
+        Dictionary with gene as key and Gene-Species reconciliation associated events as value
+    tree : Tree
+        Phylogenetic as ete3 Tree type
+        
+    Returns
+    -------
+    inOrtho_list : list
+        List of orthologs gene name (str)
     """
     # Init the list of the in ortho list
     inOrtho_list = []

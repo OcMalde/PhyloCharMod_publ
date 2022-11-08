@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-@author: odennler
+Extract blocks from a yaml file (agraph output of paloma-2) and build a module fasta file for valide blocks.
 """
 
 
@@ -18,6 +18,18 @@ import random
 def extract_block_sequence(input_file):
     """
     Extract for each PLMA block its sequence found in the input sequences.
+    
+    Parameters
+    ----------
+    input_file : str
+        Name of a file in yaml format
+        
+    Returns
+    -------
+    dict_bloc_infos : dict
+        Dictionary with bloc as key, bloc informations as value
+    seqNumber_seqInfos : dict
+        Dictionary with sequence number as key, sequence informations as value
     """
     # Read the yaml file
     with open(input_file) as i_file:
@@ -57,6 +69,17 @@ def extract_block_sequence(input_file):
 def writeFastas(dict_bloc_infos, seqNumber_seqInfos, fileName, directory) -> None:
     """
     Build a fasta file for each paloma bloc
+    
+    Parameters
+    ----------
+    dict_bloc_infos : dict
+        Dictionary with bloc as key, bloc informations as value
+    seqNumber_seqInfos : dict
+        Dictionary with sequence number as key, sequence informations as value
+    fileName : str
+        Name of a file in yaml format
+    directory : str
+        Name of the directory where bloc/modules fasta files will be written    
     """
     family = Path(fileName).stem.split("_")[0]
     if not os.path.exists(directory):
@@ -85,6 +108,16 @@ def writeFastas(dict_bloc_infos, seqNumber_seqInfos, fileName, directory) -> Non
 #==============================================================================
 
 def make_module_directory(in_file, module_directory) -> None:
+    """
+    Extract blocs from a yaml file and write the corresponding fasta files
+    
+    Parameters
+    ----------
+    in_file : str
+        Name of a file in yaml format
+    module_directory : str
+        Name of the directory where bloc/modules fasta files will be written  
+    """
     blocks_list, num_name = extract_block_sequence(in_file)
     writeFastas(blocks_list, num_name, in_file, module_directory)
 

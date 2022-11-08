@@ -1,5 +1,12 @@
 #!/bin/python3
 
+"""
+
+Build a species tree from a taxid list, based on NCBI taxonomy. 
+Taxids could be extracted from fasta file with specific formated headers.
+
+"""
+
 import argparse
 from ete3 import NCBITaxa, Tree, PhyloTree
 from pathlib import Path
@@ -11,6 +18,16 @@ from pathlib import Path
 def getNCBItaxo(taxid_list) -> object:
     """
     Recuperation of the taxonomy topology of our species using the ncbi taxonomy database
+    
+    Parameters
+    ----------
+    taxid_list : list
+        List of taxid e.g., [9606,7227]
+        
+    Returns
+    -------
+    fn : str
+        Name of the generated tree file (newick format)
     """
     ncbi = NCBITaxa()
     tree = ncbi.get_topology(taxid_list, intermediate_nodes=False)
@@ -25,6 +42,16 @@ def makeAssocDict(assocF) -> dict:
     Open an association file and return his dictionnary
     association file : taxid,assoc
     dictionnary : {taxid : assoc}
+    
+    Parameters
+    ----------
+    assocF : str
+        Name of a csv file containing an association of two elements
+        
+    Returns
+    -------
+    dic_taxid_assoc : dict
+        Dictionary conainting taxid as key, assocaited element as value
     """
     dic_taxid_assoc = {}
     with open(assocF, "r") as a_file:
@@ -37,6 +64,16 @@ def taxid_from_fasta(fasta_file) -> list:
     Get the taxid list from a fasta file
     where header are 
     >refseq_taxid
+    
+    Parameters
+    ----------
+    fasta_file : str
+        Name of a file in fasta format with header formated as  >refseq_taxid
+        
+    Returns
+    -------
+    taxid_list : list
+        List of taxid e.g., [9606,7227]
     """
     taxid_list = []
     with open(fasta_file, "r") as f_file:

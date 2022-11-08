@@ -1,4 +1,6 @@
-# Modules segmentation of a multi fasta file, and their corresponding phylogeny
+"""
+Modules segmentation of a multi fasta file, and their corresponding phylogenies.
+"""
 
 import argparse
 import os
@@ -15,6 +17,18 @@ import tools
 def segmentation_and_modules_phylo(fasta_file) -> tuple:
     """
     Modules segmentation and the phylogeny for all modules
+    
+    Parameters
+    ----------
+    fasta_file : str
+        Name of a file in fasta format
+        
+    Returns
+    -------
+    process_list : list
+        List of process (one process for one phylogeny of one module)
+    module_directory : str
+        Name of the directory containing modules files
     """
     current = os.getcwd()
     # Prepare directory
@@ -37,6 +51,20 @@ def segmentation_and_modules_phylo(fasta_file) -> tuple:
 def only_modules_phylo(fasta_file, plma_output) -> tuple:
     """
     Modules phylogeny for already present module segmentation
+    
+    Parameters
+    ----------
+    fasta_file : str
+        Name of a file in fasta format
+    plma_output : str
+        Name of a plma file
+        
+    Returns
+    -------
+    process_list : list
+        List of process (one process for one phylogeny of one module)
+    module_directory : str
+        Name of the directory containing modules files    
     """
     current = os.getcwd()
     # Prepare directory
@@ -64,6 +92,20 @@ def only_modules_phylo(fasta_file, plma_output) -> tuple:
 def correct_modules_tree(modules_fasta_tree_dn, gene_tree_fn) -> tuple:
     """
     Use treefix to correct modules trees of a directory, with treefix, using the gene tree
+    
+    Parameters
+    ----------
+    modules_fasta_tree_dn : str
+        Name of a directory with modules fils (fasta and tree)
+    gene_tree_fn : str
+        Name of a gene tree file (corresponding the genes segmented in modules)
+        
+    Returns
+    -------
+    process_list : list
+        List of process (one process for one phylogeny correction of one module)
+    tree_path_fn : str
+        Name of txt file with all module tree paths (will be use by SEADOG-MD)    
     """
     abs_path = ""
     process_list = []

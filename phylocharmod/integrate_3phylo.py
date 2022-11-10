@@ -2,12 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Created on Mond Aug 10 09:10:32 2020
-@author: odennler
-"""
-
-"""
-Script that treat and load an seadog .output reconciliation file
+Load and interpret a seadog .output reconciliation file and build a module presence map during gene evolution
 """
 
 import argparse
@@ -32,6 +27,35 @@ class c_module:
     """
     Conserved module class
     Represents a module and build his itol string
+    
+    Attributes
+    ----------
+    name : str
+        Name of the module
+    start : str
+        Start position of the module
+    end : str
+        End position of the module
+    gene : str
+        Name of the gene where the module segment come from
+    module_node_name : str
+        Name of the gene node corresponding
+    shape : str
+        Type of shape associated to the module in itol visualisation
+    color : str
+        Color associated to the module in itol visualisation
+    
+    Methods
+    -------
+    get_shapeColor 
+        Associate a `shape` and a `color` to the module
+    itol_str
+        Generate an itol string formated in itol domain dataset format (unique shape/color)
+    itol_str_gain
+        Generate an itol string formated in itol domain dataset format (green box)
+    itol_str_lost
+        Generate an itol string formated in itol domain dataset format (red box)
+        
     """
 
     def __init__(self, name, start, end, gene, module_node_name):
@@ -80,6 +104,11 @@ class c_module:
 def make_dict_Module_ShapeColor(module_list) -> dict:
     """
     From a module list, make an attribution of a shape and color for each module
+    
+    Parameters
+    ----------
+    module_list : list
+        A list of modules
     """
     shape_list = ["RE","HH","HV",
                     "EL","DI","TR",
@@ -93,6 +122,16 @@ def make_dict_Module_ShapeColor(module_list) -> dict:
 def make_dict_Domains_ShapeColor(domain_list) -> dict:
     """
     From a domain list, make attribution of simple defined grey shape of each domain
+    
+    Parameters
+    ----------
+    domain_list : list
+        A list of domains
+        
+    Returns
+    -------
+    dict_domain_shape_color : dict
+        A dictionary with domain name as key and shape/color (tuple of str) as value
     """
     dict_domain_shape_color = {}
     for domain in domain_list:
@@ -120,6 +159,11 @@ def make_dict_Domains_ShapeColor(domain_list) -> dict:
 def random_hexaColor() -> str:
     """
     Generate an string with a random hexadecimal color code
+    
+    Returns
+    -------
+    col : str
+        A hexadecimal string corresponding a random color
     """
     col = "#"+''.join([random.choice('0123456789ABCDEF') for j in range(6)])
     return col
@@ -133,6 +177,23 @@ class c_mapping:
     Reconciliation mapping class
     Represents any DGS mapping
     DG or GS
+    
+    Attributes
+    ----------
+    entity_1 : str
+        First element described in the mapping (i.e., a tree node)
+    entity_2 : str
+        Second element described in the mapping (i.e., a node of another tree)
+    event : str
+        Type of event associated to the mapping
+    
+    Methods
+    -------
+    get_geneNode 
+        Get the node in the gene tree, corresponding a gene entity (could be `entity_1` or `entity_2`)
+    get_modNode 
+        Get the node in the module tree, corresponding a module entity (could be `entity_1` or `entity_2`)
+        
     """
 
     def __init__(self, seadog_mapping_line):
@@ -181,6 +242,24 @@ def read_seadogO(file_name, gene_tree_file) -> tuple:
     Read the seadog output file and build :
         - a gene Tree
         - a dict {gene : [domain_list]}
+        
+    Parameters
+    ----------
+    file_name : str
+        Name of a txt file formated as an SEADOG-MD output file
+    gene_tree_file : str
+        Name of the gene tree file corresponding, in newick format
+        
+    Returns
+    -------
+    gene_tree : Tree
+        Gene tree as a ete3.Tree object
+    dict_module_mappingList : dict
+        Dictionary with module name as key and list of mapping (c_mapping object) as value
+    dict_module_modTree : dict
+        Dictionary with module name as key and module tree (ete3.Tree) as value
+    gs_mapping_list : list
+        A list of mapping object from Gene-Species reconciliation
     """
     
     dict_gene_moduleList = {}
@@ -259,6 +338,22 @@ def infers_modulesCompo(gene_tree, dict_module_mappingList, dict_module_modTree)
     and their corresponding mappings from the reconciliation
     to infers the modules composition of each ancestral gene (internal nodes)
     Return a dict {gene : [module list]}
+    
+    Parameters
+    ----------
+    gene_tree : Tree
+        Gene tree as a ete3.Tree object
+    dict_module_mappingList : dict
+        Dictionary with module name as key and list of mapping (c_mapping object) as value
+    dict_module_modTree : dict
+        Dictionary with module name as key and module tree (ete3.Tree) as value
+        
+    Returns
+    -------
+    dict_gene_modulesList : dict
+        Dictionary with gene (str) as key and list of modules (c_module object) as value
+    dict_module_mappingList : dict
+        Dictionary with module name as key and list of mapping (c_mapping object) as value (completed)
     """
     # Init the dict ; gene : [modules list]
     dict_gene_modulesList = {n.name : [] for n in gene_tree.traverse()}
@@ -307,6 +402,26 @@ def module_gene_inference(module, module_tree, gene_tree, mapping_list, dic_modu
     and their mapping gene <-> module
     to infers the presence of the modules to the ancestral genes
     Return a dict : {gene : module_count}
+    
+    Parameters
+    ----------
+    module : str
+        Name of the module
+    module_tree : Tree
+        The module tree as a ete3.Tree object
+    gene_tree : Tree
+        Gene tree as a ete3.Tree object
+    mapping_list : list
+        A list of mapping (c_mapping object)
+    dict_module_modTree : dict
+        Dictionary with module name as key and module tree (ete3.Tree) as value
+        
+    Returns
+    -------
+    dict_gene_moduleCount : dict
+        Dictionary with gene as key (str) and module count as value (int)
+    infers_node_list : list
+        A list of the gene nodes where the presence of the module have been infered
     """
     dict_gene_moduleCount = {}
     infers_node_list = []
@@ -379,6 +494,24 @@ def descendance_mapping(module_node, module_tree, gene_tree, mapping_list, dic_m
     If it's the case, we want the path beetween Gene A and Gene B in the gene tree
     => They are the descendants of the gene with the last modules events, and the ancestors of the modules childs of the next event
     (2 childs, so 2 paths, we return the list of all nodes in theses)
+    
+    Parameters
+    ----------
+    module_node : Tree
+        Node of the module as a ete3.Tree object
+    module_tree : Tree
+        The module tree as a ete3.Tree object
+    gene_tree : Tree
+        Gene tree as a ete3.Tree object
+    mapping_list : list
+        A list of mapping (c_mapping object)
+    dict_module_modTree : dict
+        Dictionary with module name as key and module tree (ete3.Tree) as value
+        
+    Returns
+    -------
+    geneNode_list : list
+        List of gene node (as ete3.Tree object)
     """
     geneNode_list = []
     # We first want the mapping of our module of interest, so we know his corrsponding gene node
@@ -408,6 +541,26 @@ def transfer_descendance_mapping(module_node, recipient_gene_node, module_tree, 
     If it's the case, we want the path beetween Recipient and Next in the gene tree, and path beetween normal child and Next descendant with event
     => They are the descendants of the gene with the last modules events, and the ancestors of the modules childs of the next event
     (2 childs, so 2 paths, we return the list of all nodes in theses)
+    
+    Parameters
+    ----------
+    module_node : Tree
+        Node of the module as a ete3.Tree object
+    recipient_gene_node : Tree
+        Node of the recipient gene as a ete3.Tree object
+    module_tree : Tree
+        The module tree as a ete3.Tree object
+    gene_tree : Tree
+        Gene tree as a ete3.Tree object
+    mapping_list : list
+        A list of mapping (c_mapping object)
+    dict_module_modTree : dict
+        Dictionary with module name as key and module tree (ete3.Tree) as value
+        
+    Returns
+    -------
+    geneNode_list : list
+        List of gene node (as ete3.Tree object)
     """
     geneNode_list = []
     # We first want the mapping of our module of interest, so we know his corrsponding gene node
@@ -450,6 +603,24 @@ def gene_descendance(gene_node, gene_tree, module_tree, mapping_list, dic_module
     """
     Get the nodes list of all the descendants a gene node
     Beetween the gene node, and his most ancestral descendant with module information (=closest)
+    
+    Parameters
+    ----------
+    gene_node : Tree
+        Node of the gene as a ete3.Tree object
+    gene_tree : Tree
+        Gene tree as a ete3.Tree object
+    module_tree : Tree
+        The module tree as a ete3.Tree object
+    mapping_list : list
+        A list of mapping (c_mapping object)
+    dict_module_modTree : dict
+        Dictionary with module name as key and module tree (ete3.Tree) as value
+        
+    Returns
+    -------
+    geneNode_list : list
+        List of gene node (as ete3.Tree object)
     """
     geneNode_list = []
     # Make an full module node list (= all module nodes)
@@ -476,6 +647,18 @@ def gene_descendance(gene_node, gene_tree, module_tree, mapping_list, dic_module
 def get_any_geneNode(gene_name, gene_tree) -> object:
     """
     Search the gene node that corresponds to the gene name
+    
+    Parameters
+    ----------
+    gene_name : str
+        Name of a gene
+    gene_tree : Tree
+        Gene tree as a ete3.Tree object
+        
+    Returns
+    -------
+    node : Tree
+        A gene node as ete3.Tree object
     """
     for node in gene_tree.traverse():
         if gene_name in node.name:
@@ -485,6 +668,20 @@ def ete3_nodesPath(tree, nodeAnc_name, nodeChild_name) -> list:
     """
     Get the nodes between 2 nodes, one child (recent), and on ancestral
     using the topology oe their tree
+    
+    Parameters
+    ----------
+    tree : Tree
+        A tree as a ete3.Tree object
+    nodeAnc_name : str
+        Name corresponding a node of the tree
+    nodeChild_name : str
+        Name corresponding a node of the tree
+        
+    Returns
+    -------
+    path : list
+        A list of nodes (as ete3.Tree object)
     """
     # Get the node corresponding the name
     child_node = tree&nodeChild_name
@@ -505,6 +702,20 @@ def complemente_dict(dict_k_vlist, key, value) -> dict:
     """
     If not key, add a it and init the value list
     else add the value to the value list
+    
+    Parameters
+    ----------
+    dict_k_vlist : dict
+        A dictionary with k as key and vlist as value (a list)
+    key
+        A key of the `dict_k_vlist` dictionary
+    value
+        A value to append to the value list associated to the `key`
+        
+    Returns
+    -------
+    dict_k_vlist : dict
+        A dictionary with k as key and vlist as value (a list), (completed) 
     """
     if key not in dict_k_vlist:
         dict_k_vlist[key] = [value]
@@ -519,6 +730,20 @@ def complemente_dict_nonAdditif(dict_k_vlist, key, value) -> dict:
     Non additif version : if its a domain to add, and its already present in the list
     we dont add it (to avoid copy)
     In theory, not needed cause we trust our previous choices
+    
+    Parameters
+    ----------
+    dict_k_vlist : dict
+        A dictionary with k as key and vlist as value (a list)
+    key
+        A key of the `dict_k_vlist` dictionary
+    value
+        A value to append to the value list associated to the `key`
+        
+    Returns
+    -------
+    dict_k_vlist : dict
+        A dictionary with k as key and vlist as value (a list), (completed) 
     """
     if key not in dict_k_vlist:
         dict_k_vlist[key] = [value]
@@ -543,6 +768,18 @@ def make_dict_module_change(dict_gene_domainList, gene_tree) -> dict:
     { gene : [ [news modules] , [lost modules] ] }
     A composition change, is the differences in module of a node, with his parent
     (so can have news or lost modules that his parent had)
+    
+    Parameters
+    ----------
+    dict_gene_domainList : dict
+        A dictionary with gene name (str) as key and list of domains/modules as value (being a c_module object)
+    gene_tree : Tree
+        A tree as ete3.Tree object, including gene nodes with names of the  genes in `dict_gene_domainList`
+        
+    Returns
+    -------
+    dict_gene_moduleChange : dict
+        A dictionary with gene name (str) as key and list of modules changes [list of modules gained and list of modules lost] as value 
     """
     # Init the dict
     dict_gene_moduleChange = {}
@@ -584,6 +821,20 @@ def look_at_modules_on_leafs(dict_gene_moduleChange, dict_gene_moduleList, gene_
     Here, we look at the modules change, and specifically at how are thses modules on the leafs of their changes
     Return a dict
     {gene : { dict leafs : modules of the module change }}}
+    
+    Parameters
+    ----------
+    dict_gene_moduleChange : dict
+        A dictionary with gene name (str) as key and list of modules changes [list of modules gained and list of modules lost] as value 
+    dict_gene_moduleList : dict
+        A dictionary with gene name (str) as key and list of modules as value (being a c_module object)
+    gene_tree : Tree
+        A tree as ete3.Tree object
+        
+    Returns
+    -------
+    dict_gene_LeafsModulesThatChanged : dict
+        A dictionary with gene name (str) as key and a dict of modules changes at leaves as value 
     """
     # Init the out dict
     dict_gene_LeafsModulesThatChanged = {}
@@ -621,6 +872,17 @@ def modules_on_leafs_output(dict_gene_LeafsModulesThatChanged, dict_gene_moduleL
     Make an output directory to have an idea of modules implicated on modules changes
     Module at an internal nodes are not consistent, so wee look at their correspondance on the real / true gene
     ( a file per gene / node of change)
+    
+    Parameters
+    ----------
+    dict_gene_LeafsModulesThatChanged : dict
+        A dictionary with gene name (str) as key and a dict of modules changes at leaves as value 
+    dict_gene_moduleList : dict
+        A dictionary with gene name (str) as key and list of modules as value (being a c_module object)
+    dict_gene_domainsList : dict
+        A dictionary with gene name (str) as key and list of domains as value (being a c_module object)
+    directory : str
+        Name of the output directory
     """
     # Make the dict if its not existent
     if not os.path.exists(directory):
@@ -635,21 +897,20 @@ def modules_on_leafs_output(dict_gene_LeafsModulesThatChanged, dict_gene_moduleL
 
 def gene_itol(gene, leaves_change, dict_gene_domainsList, dict_gene_PresentmoduleList, directory) -> None:
     """
+    Create itol modules changes / domains known
+    
     Parameters
     ----------
-    gene : TYPE
-        DESCRIPTION.
-    leaves_change : TYPE
-        DESCRIPTION.
-    dict_gene_domainsList : TYPE
-        DESCRIPTION.
-    directory : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    None
-    Create itol modules changes / domains known
+    gene : str
+        Name of a gene
+    leaves_change : dict
+        Dictionary with leaf node name (str) as key and list of module change [list of modules gained, list of modules lost] as value
+    dict_gene_domainsList : dict
+        A dictionary with gene name (str) as key and list of domains as value (being a c_module object)
+    dict_gene_PresentmoduleList : dict
+        A dictionary with gene name (str) as key and list of modules as value (being a c_module object)
+    directory : str
+        Name of the output directory
     """
     # Dict with only module gained / lost for each leaf
     dict_gene_moduleList = {}
@@ -672,21 +933,18 @@ def gene_itol(gene, leaves_change, dict_gene_domainsList, dict_gene_Presentmodul
        
 def gene_pdf(gene, leaves_change, dict_gene_domainsList, directory) -> None:
     """
+    Create pdf(s) for 1 gene (so multiple pdf, 1 per leaves)
+    
     Parameters
     ----------
-    gene : TYPE
-        DESCRIPTION.
-    leaves_change : TYPE
-        DESCRIPTION.
-    dict_gene_domainsList : TYPE
-        DESCRIPTION.
-    directory : TYPE
-        DESCRIPTION.
-
-    Returns
-    -------
-    None
-    Create pdf(s) for 1 gene (so multiple pdf, 1 per leaves)
+    gene : str
+        Name of a gene
+    leaves_change : dict
+        Dictionary with leaf node name (str) as key and list of module change [list of modules gained, list of modules lost] as value
+    dict_gene_domainsList : dict
+        A dictionary with gene name (str) as key and list of domains as value (being a c_module object)
+    directory : str
+        Name of the output directory
     """
     # Dict with only module gained / lost for each leaf
     dict_gene_moduleList = {}
@@ -737,7 +995,19 @@ def gene_pdf(gene, leaves_change, dict_gene_domainsList, directory) -> None:
 
 def make_module_gene_recipient_list(dict_gene_moduleObjList, dict_module_mappingList) -> list:
     """
-    Make a list : [module_object, gene, recpient]
+    Make a list : [module_object, gene, recipient]
+    
+    Parameters
+    ----------
+    dict_gene_moduleObjList : dict
+        A dictionary with gene name (str) as key and list of modules as value (being a c_module object)
+    dict_module_mappingList : dict
+        Dictionary with module name as key and list of mapping (c_mapping object) as value
+        
+    Returns
+    -------
+    list_module_gene_recipient : list
+        A list of list [c_module object, gene, recipient]
     """
     list_module_gene_recipient = []
     # Iterate on mapping events, to find transfer
@@ -767,6 +1037,18 @@ def load_pastml_ancestral_states(pastml_tab, gene_tree) -> dict:
     (ex : GOA termes)
     Return a dict :
     { gene : [GO list] }
+    
+    Parameters
+    ----------
+    pastml_tab : str
+        A name of a tab file , e.g., pastML combined_ancestral_states.tab file
+    gene_tree : Tree
+        A tree as ete3.Tree object
+        
+    Returns
+    -------
+    dict_nodeName_annotationsList : dict
+        Dictionary with gene node name (str) as key and list of annotations (str) as value
     """
     # Init out dict
     dict_nodeName_annotationsList = {}
@@ -812,6 +1094,18 @@ def make_dict_annotation_change(dict_nodeName_annotationsList, gene_tree) -> dic
     { gene : [ [news annotation] , [lost annotation] ] }
     A composition change, is the differences in annotation of a node, with his parent
     (so can have news or lost annotations that his parent had)
+    
+    Parameters
+    ----------
+    dict_nodeName_annotationsList : dict
+        Dictionary with gene node name (str) as key and list of annotations (str) as value
+    gene_tree : Tree
+        A tree as ete3.Tree object
+        
+    Returns
+    -------
+    dict_gene_annotationsChange : dict
+        Dictionary with gene node name (str) as key and list of changes (list, [list of gained annotations, list of lost annotations]) as value
     """
     # Init the dict
     dict_gene_annotationsChange = {}
@@ -850,6 +1144,15 @@ def write_function_module_change(dict_gene_moduleChange, dict_nodeName_annotatio
     """
     Write a csv file with nodes with annotations / functions change, 
     and the module composition change at these gene
+    
+    Parameters
+    ----------
+    dict_gene_moduleChange : dict
+        A dictionary with gene name (str) as key and list of modules changes [list of modules gained and list of modules lost] as value 
+    dict_nodeName_annotationsChange : dict
+        Dictionary with gene node name (str) as key and list of changes (list, [list of gained annotations, list of lost annotations]) as value
+    filename : str
+        Name of the output file
     """
     # Make the file 
     with open(filename, "w+") as csv_file:
@@ -866,6 +1169,15 @@ def write_complete_function_module_change(dict_gene_moduleChange, dict_nodeName_
     Write a csv file with nodes with all annotations / functions change, 
     and the module composition change at these gene
     (even if no annotation change)
+    
+    Parameters
+    ----------
+    dict_gene_moduleChange : dict
+        A dictionary with gene name (str) as key and list of modules changes [list of modules gained and list of modules lost] as value 
+    dict_nodeName_annotationsChange : dict
+        Dictionary with gene node name (str) as key and list of changes (list, [list of gained annotations, list of lost annotations]) as value
+    filename : str
+        Name of the output file
     """
     # Make the file 
     with open(filename, "w+") as csv_file:
@@ -880,6 +1192,19 @@ def write_function_module_change_expanded(gene_tree, dict_gene_moduleList, dict_
     """
     Write a csv file with nodes with annotations / functions changes, 
     but expanded to the perspectives of all their descendants (ie leaves)
+    
+    Parameters
+    ----------
+    gene_tree : Tree
+        A tree as a ete3.Tree object
+    dict_gene_moduleList : dict
+        A dictionary with gene name (str) as key and list of modules as value (being a c_module object)
+    dict_gene_moduleChange : dict
+        A dictionary with gene name (str) as key and list of modules changes [list of modules gained and list of modules lost] as value 
+    dict_nodeName_annotationsChange : dict
+        Dictionary with gene node name (str) as key and list of changes (list, [list of gained annotations, list of lost annotations]) as value
+    filename : str
+        Name of the output file
     """
     # Make the file
     with open(filename, "w+") as csv_file:
@@ -917,6 +1242,18 @@ def full_gene_tree(reconc_gene_tree, length_gene_tree) -> object:
     Being ; 
     1) the internal nodes names of the reconcilied gene tree (from dgs)
     2) the branch length from the phylogenetic tree (before dgs)
+    
+    Parameters
+    ----------
+    reconc_gene_tree : Tree
+        A tree as a ete3.Tree, with internal nodes names
+    length_gene_tree : Tree
+        A tree as ete3.Tree, with branch length
+        
+    Returns
+    -------
+    full_gene_tree : Tree
+        A tree as ete3.Tree, with internal nodes names and branch length
     """
     for node in length_gene_tree.traverse():
         for reconc_node in reconc_gene_tree.traverse():
@@ -936,6 +1273,20 @@ def write_sp_gene_event(dgs_reconciliation_output_fn, gene_tree_fn) -> str:
     """
     Write csv directly from the seadog output and reconc gene tree
     (usefull for launch pastml before integrate all)
+    
+    Parameters
+    ----------
+    dgs_reconciliation_output_fn : str
+        Name of a DGS-reconciliation file in SEADOG-MD output format
+    gene_tree_fn : str
+        Name of a tree file in newick format
+        
+    Returns
+    -------
+    reconc_gene_tree : str
+        Name of a tree file in newick format
+    filename : str
+       Name of a Gene-Species events file in csv format
     """
     gene_tree, dict_module_mappingList, dict_module_modTree, gs_mapping_list = read_seadogO(dgs_reconciliation_output_fn, gene_tree_fn)
     dict_gene_spGeneEvent = {gs_mapping.entity_1 : gs_mapping.event for gs_mapping in gs_mapping_list}
@@ -949,6 +1300,13 @@ def write_spGeneEvent_csv(dict_gene_spGeneEvent, filename) -> None:
     """
     Write a csv file
     gene (= node name of the the gene tree), event gene-specie (Speciation or Gene duplication, or just a leaf)
+    
+    Parameters
+    ----------
+    dict_gene_spGeneEvent : dict
+        Dictionary with gene name (str) as key and type of Gene-Species event (str) as value
+    filename : str
+        Name of the output file, csv format
     """
     # Create the csv file
     with open(filename, "w+") as csv_file:
@@ -965,6 +1323,13 @@ def write_module_compo_csv(dict_gene_moduleList, filename) -> None:
     """
     Write a csv file
     node_name, module composition list (split by |)
+    
+    Parameters
+    ----------
+    dict_gene_moduleList : dict
+        A dictionary with gene name (str) as key and list of modules as value (being a c_module object)
+    filename : str
+        Name of the output file, csv format
     """
     # Create the csv file
     with open(filename, "w+") as csv_file:
@@ -979,6 +1344,13 @@ def write_module_change_csv(dict_gene_moduleChange, filename) -> None:
     Write a csv file
     node_name, modules gained, modules lost (modules spliter being |)
     Use the gene moduleChange dict
+    
+    Parameters
+    ----------
+    dict_gene_moduleChange : dict
+        A dictionary with gene name (str) as key and list of modules changes [list of modules gained and list of modules lost] as value 
+    filename : str
+        Name of the output file, csv format
     """
     # Create the csv file
     with open(filename, "w+") as csv_file:
@@ -1004,6 +1376,18 @@ def load_domains_from_csv(gene_list, domains_file) -> dict:
     { gene : [ domain_dict list ] }
     A domain of the domain_dict list is :
     { domain_name : [ start, end ]}
+    
+    Parameters
+    ----------
+    gene_list : list
+        A list of gene node name (str)
+    domains_file : str
+        Name of domains file in csv format (geneName (no node ID), domainsName, start, stop)
+        
+    Returns
+    -------
+    dict_gene_domainsList : dict
+        Dictionary with gene node name (str) as key and list of the associated domains as value
     """
     # Init the dict, with full gene_list (with node id)
     dict_gene_domainsList = {gene : [] for gene in gene_list}
@@ -1028,6 +1412,16 @@ def domains_as_modules(dict_gene_domainsList) -> dict:
     """
     Build a dict gene : domains list, 
     with domain being module object (for modules operations ...)
+    
+    Parameters
+    ----------
+    dict_gene_domainsList : dict
+        Dictionary with gene node name (str) as key and list of the associated domains as value (a domain being a dictionary)
+        
+    Returns
+    -------
+    dict_gene_domainsOList : dict
+        Dictionary with gene node name (str) as key and list of the associated domains as value (a domain being a c_module object)
     """
     dict_gene_domainsOList = {}
     domain_list_uniq = []
@@ -1054,6 +1448,18 @@ def dict_domains_in_modules(dict_gene_moduleList, dict_gene_domainsList) -> dict
     Here, we want to know the modules that are present in the domains, using proteics sequences positions
     Return a dict :
     { gene : { domain_modulesList_dict } }
+    
+    Parameters
+    ----------
+    dict_gene_moduleList : dict
+        Dictionary with gene node name (str) as key and list of the associated modules as value (a module being a c_module object)
+    dict_gene_domainsList : dict
+        Dictionary with gene node name (str) as key and list of the associated domains as value (a domain being a dictionary)
+        
+    Returns
+    -------
+    dict_gene_domainsModules : dict
+        Dictionary with gene node name (str) as key and a dictionary of domains and modules in it as value (domain being a key, list of module as a value)
     """
     # Init dict
     dict_gene_domainsModules = {gene : {} for gene in dict_gene_domainsList.keys()}
@@ -1078,6 +1484,18 @@ def infers_domains_from_modules(dict_gene_moduleList, dict_gene_domainsModules) 
     Our gene is a sum of modules, we want to scan it for the presence of non known
     sum of modules, that can represents a domains not found yet
     Particulary useful for ancestral genes, that have non domains
+    
+    Parameters
+    ----------
+    dict_gene_moduleList : dict
+        Dictionary with gene node name (str) as key and list of the associated modules as value (a module being a c_module object)
+    dict_gene_domainsModules : dict
+        Dictionary with gene node name (str) as key and a dictionary of domains and modules in it as value (domain being a key, list of module as a value)
+        
+    Returns
+    -------
+    dict_gene_infDomainsModules : dict
+        Dictionary with gene node name (str) as key and a dictionary of infered domains (based on modules compositions)
     """
     # Init the new dict for inferred domaind modules (empty, so full inferred domains)
     dict_gene_infDomainsModules = {gene : {} for gene in dict_gene_moduleList.keys()}
@@ -1118,6 +1536,18 @@ def domain_in_modules(domain_pos_list, moduleList) -> list:
     for each module, we got his start / stop of the same proteic sequence
     Here, we want to know the modules that are present in the domains, using proteics sequences positions
     Return a list of the modules present in this domain
+    
+    Parameters
+    ----------
+    domain_pos_list : list
+        A list of start and stop position of a domain
+    moduleList : list
+        A list of modules, a module being a c_module object
+            
+    Returns
+    -------
+    d_moduleList : list
+        A list of selected modules, a module being a c_module object
     """
     # Init the module list of this domain
     d_moduleList = []
@@ -1138,6 +1568,18 @@ def modules_not_in_domains(dict_gene_moduleList, dict_gene_domainsModules) -> di
     (= free modules)
     Return them as a dictionnary
     { gene : [free modules list] }
+    
+    Parameters
+    ----------
+    dict_gene_moduleList : dict
+        Dictionary with gene node name (str) as key and list of the associated modules as value (a module being a c_module object)
+    dict_gene_domainsModules : dict
+        Dictionary with gene node name (str) as key and a dictionary of domains and modules in it as value (domain being a key, list of module as a value)
+            
+    Returns
+    -------
+    dict_gene_freeModules : dict
+        Dictionary with gene node name (str) as key and a list of modules as value (a module being a c_module object)
     """
     # Init the dict
     dict_gene_freeModules = {gene : [] for gene in dict_gene_moduleList.keys()}
@@ -1160,6 +1602,16 @@ def ghost_domains(dict_gene_domainsModules) -> dict:
     They are domain without any modules (so lost / false informations)
     Return a dict
     { gene : [ ghost domains list ]}
+    
+    Parameters
+    ----------
+    dict_gene_domainsModules : dict
+        Dictionary with gene node name (str) as key and a dictionary of domains and modules in it as value (domain being a key, list of module as a value)
+            
+    Returns
+    -------
+    dict_gene_ghostDomains : dict
+        Dictionary with gene node name (str) as key and a list of domains as value
     """
     # Init the dict
     dict_gene_ghostDomains = {gene : [] for gene in dict_gene_domainsModules.keys()}
@@ -1181,6 +1633,18 @@ def ghost_domains(dict_gene_domainsModules) -> dict:
 def genes_containing_modulesComp_any(modules_composition, dict_gene_moduleList) -> list:
     """
     Search the genes containing at least 1 module of a module composition
+    
+    Parameters
+    ----------
+    modules_composition : list
+        A list of modules (a module being a c_module object)
+    dict_gene_moduleList : dict
+        Dictionary with gene node name (str) as key and list of the associated modules as value (a module being a c_module object)
+            
+    Returns
+    -------
+    gene_list : list
+        A list of gene node name (str)
     """
     # Init the gene list
     gene_list = []
@@ -1200,6 +1664,18 @@ def genes_containing_modulesComp_any(modules_composition, dict_gene_moduleList) 
 def genes_containing_modulesComp_whole(modules_composition, dict_gene_moduleList) -> list:
     """
     Search the genes containing the whole module composition
+    
+    Parameters
+    ----------
+    modules_composition : list
+        A list of modules (a module being a c_module object)
+    dict_gene_moduleList : dict
+        Dictionary with gene node name (str) as key and list of the associated modules as value (a module being a c_module object)
+            
+    Returns
+    -------
+    gene_list : list
+        A list of gene node name (str)
     """
     # Init the gene list
     gene_list = []
@@ -1233,6 +1709,13 @@ def write_itol_modulesComposChange(dict_gene_moduleChange, filename) -> None:
     1 modules, gain or lost = 1 change
     using the gene tree topology
     (what change in the module composition at the node, in comparaison of the parents)
+    
+    Parameters
+    ----------
+    dict_gene_moduleChange : dict
+        A dictionary with gene name (str) as key and list of modules changes [list of modules gained and list of modules lost] as value 
+    filename : str
+        Name of the output file (itol txt format)
     """
     # Init the itol PIE Chart file
     itol_str = "DATASET_PIECHART\n"
@@ -1253,6 +1736,20 @@ def write_itol_modulesComposChange(dict_gene_moduleChange, filename) -> None:
         itol_file.write(itol_str)
 
 def write_itol_annotationsChange(dict_gene_annotationsChange, filename) -> None:
+    """
+    Make itol pie chart file with number of annotations change
+    at internals nodes, 
+    1 annotation, gain or lost = 1 change
+    using the gene tree topology
+    (what change in the annotations composition at the node, in comparaison of the parents)
+    
+    Parameters
+    ----------
+    dict_gene_annotationsChange : dict
+        Dictionary with gene node name (str) as key and list of changes (list, [list of gained annotations, list of lost annotations]) as value
+    filename : str
+        Name of the output file (itol txt format)
+    """
     itol_str = "DATASET_PIECHART\n"
     itol_str += "SEPARATOR COMMA\nDATASET_LABEL,Pie : annotations gains / losts\nCOLOR,#0000FF\n"
     itol_str += "FIELD_COLORS,#0000FF,#A9A9A9\nFIELD_LABELS,gain,lost\n"
@@ -1268,6 +1765,13 @@ def write_itol_annotationsChange(dict_gene_annotationsChange, filename) -> None:
 def write_itol_moduleNb(filename, dict_gene_moduleList) -> None:
     """
     Itol simple bar file, with bar corresponding the number of modules at the leafs
+    
+    Parameters
+    ----------
+    filename : str
+        Name of the output file (itol txt format)
+    dict_gene_moduleList : dict
+        Dictionary with gene node name (str) as key and list of the associated modules as value (a module being a c_module object)
     """
     itol_str = "DATASET_SIMPLEBAR\n"
     itol_str += "SEPARATOR COMMA\nDATASET_LABEL,Modules number\nCOLOR,#00FF00\n"
@@ -1282,6 +1786,13 @@ def write_itol_moduleNb(filename, dict_gene_moduleList) -> None:
 def write_itol_mod_heatmap(filename, dict_gene_moduleList) -> None:
     """
     Itol heatmap file, with presence / absence of modules at the leafs
+    
+    Parameters
+    ----------
+    filename : str
+        Name of the output file (itol txt format)
+    dict_gene_moduleList : dict
+        Dictionary with gene node name (str) as key and list of the associated modules as value (a module being a c_module object)
     """
     itol_str = "DATASET_HEATMAP\n"
     itol_str += "SEPARATOR COMMA\nDATASET_LABEL,Modules presence\nCOLOR,#2F4F4F\n"
@@ -1311,6 +1822,13 @@ def write_itol_mod_heatmap(filename, dict_gene_moduleList) -> None:
 def write_itol_annot_heatmap(filename, dict_gene_annotationsList) -> None:
     """
     Itol heatmap file, with presence / absence of modules at the leafs
+    
+    Parameters
+    ----------
+    filename : str
+        Name of the output file (itol txt format)
+    dict_gene_annotationsList : dict
+        Dictionary with gene node name (str) as key and list of the associated annotations as value (an annotation being a str)
     """
     itol_str = "DATASET_HEATMAP\n"
     itol_str += "SEPARATOR COMMA\nDATASET_LABEL,Annotations presence\nCOLOR,#2F4F4F\n"
@@ -1339,6 +1857,13 @@ def write_itol_annot_heatmap(filename, dict_gene_annotationsList) -> None:
 def write_itol_presenceShape(filename, dict_gene_moduleList) -> None:
     """
     Itol shapes file, with presence / absence of modules at the leafs
+    
+    Parameters
+    ----------
+    filename : str
+        Name of the output file (itol txt format)
+    dict_gene_moduleList : dict
+        Dictionary with gene node name (str) as key and list of the associated modules as value (a module being a c_module object)
     """
     itol_str = "DATASET_EXTERNALSHAPE\n"
     itol_str += "SEPARATOR COMMA\nDATASET_LABEL,Modules presence\nCOLOR,#2F4F4F\n"

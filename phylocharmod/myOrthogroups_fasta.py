@@ -1,5 +1,9 @@
 #!/bin/python3
 
+"""
+Select homolog proteins from orthogroups containing a set of proteins of interest
+"""
+
 import os
 import argparse
 import re
@@ -16,6 +20,16 @@ def read_orthogroups(fn) -> dict:
     Read the Orthogroups csv file of orthofinder
     and return a dict
     { orthogroup_name : [ protein refseq list ]}
+    
+    Parameters
+    ----------
+    fn : str
+        Name of a orthogroup file in csv format
+        
+    Returns
+    -------
+    dict_og_protList : dict
+        Dictionary of orthogroups, orthgroup name (str) as key, list of refseq (str) clustered in this orthgroup as value
     """
     dict_og_protList = {}
     with open(fn, "r") as ortho_file:
@@ -42,6 +56,16 @@ def read_prot_list(fn) -> list:
     """
     read a file with proteins of interest
     1 protein refseq /id per line
+    
+    Parameters
+    ----------
+    fn : str
+        Name of a file in txt format (1 refseq id per line)
+        
+    Returns
+    -------
+    prot_list : list
+        List of proteins refseq (str)
     """
     with open(fn, "r") as prot_file:
         prot_list = [prot.replace("\n","") for prot in prot_file]
@@ -56,6 +80,18 @@ def select_my_family(dict_og_protList, prot_list) -> dict:
     Select the orthogroups containing at least 1 of the protein of the prot list
     return a dict
     { orthogroup_name : [ protein refseq list ]}
+    
+    Parameters
+    ----------
+    dict_og_protList : dict
+        Dictionry of orthogroups, orthgroup name (str) as key, list of refseq (str) clustered in this orthgroup as value
+    prot_list : list
+        List of proteins refseq (str)
+        
+    Returns
+    -------
+    my_og : dict
+        Dictionary of selected orthogroups, orthgroup name (str) as key, list of refseq (str) clustered in this orthgroup as value
     """
     # Proteins in orthogroups
     my_og = {
@@ -81,6 +117,16 @@ def makeAssocDict(assocF) -> dict:
     Open an association file and return his dictionnary
     association file : taxid,assoc
     dictionnary : {taxid : assoc}
+    
+    Parameters
+    ----------
+    assocF : str
+        Name of a association file in csv format (taxid,assoc)
+        
+    Returns
+    -------
+    dic_taxid_assoc : dict
+        Dictionary of associations, taxid (str) as key, associated information (str) as value
     """
     dic_taxid_assoc = {}
     with open(assocF, "r") as a_file:
@@ -95,6 +141,16 @@ def makeAssocDict(assocF) -> dict:
 def getFastaNCBI(ncbi_id) -> str:
     """
     Search with ncbi api, the sequence on fasta format of the corresponding ncbi id
+    
+    Parameters
+    ----------
+    ncbi_id : str
+        Identifiant compatible with NCBI (e.g., refseq)
+        
+    Returns
+    -------
+    fasta : str
+        Sequence in fasta format
     """
     entrez= "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=protein&&id="
     rettype = "&rettype=fasta"
@@ -108,6 +164,13 @@ def getFastaNCBI(ncbi_id) -> str:
 def write_orthogroups_csv(dict_og_protList, filename) -> None:
     """
     Write csv file, summering a orthogroups selection
+    
+    Parameters
+    ----------
+    dict_og_protList : dict
+        Dictionary of orthogroups, orthgroup name (str) as key, list of refseq (str) clustered in this orthgroup as value
+    filename : str
+        Name to give to the output file, csv format
     """
     with open(filename, "w+") as csv_file:
         csv_file.write("og_name,refseq\n")
@@ -119,6 +182,15 @@ def write_orthogroups_csv(dict_og_protList, filename) -> None:
 def writeFamilyFasta(my_family, dic_taxid_assoc, directory_name) -> None:
     """
     Write the multi fasta file with all the sequence of the proteins of the family
+    
+    Parameters
+    ----------
+    my_family : list
+        List of selected proteins
+    dic_taxid_assoc : dict
+        Dictionary of associations, taxid (str) as key, associated information (str) as value
+    directory_name : str
+        Name of the output directory
     """
     if not os.path.exists(directory_name):
         os.makedirs(directory_name)

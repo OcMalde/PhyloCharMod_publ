@@ -1,6 +1,8 @@
 #!/bin/python3
 
-# Write proper csv leaf file from manual ppi file
+"""
+Write a proper leaf file in csv file, based on a ppi description file (csv)
+"""
 
 import argparse
 from pathlib import Path
@@ -11,6 +13,16 @@ def load_equivalence(equivalence_csv) -> dict:
     Load equivalence csv file, 
     return a dict 
     { name : refseq }
+    
+    Parameters
+    ----------
+    equivalence_csv : str
+        Name of a equivalence file in csv format (conversion of protein names)
+        
+    Returns
+    -------
+    dict_name_refseq : dict
+        Dictionary of alias name, protein name as key and associated refseq as value
     """
     dict_name_refseq = {}
     with open(equivalence_csv, "r") as csv_file:
@@ -28,6 +40,16 @@ def load_ppi(ppi_csv) -> dict:
     ppi_uniprot, ppi_name, my_prot_name
     return a dict
     { my_prot_name : [ppi list]}
+    
+    Parameters
+    ----------
+    ppi_csv : str
+        Name of a ppi file in csv format (ppi_uniprot, ppi_name, my_prot_name)
+        
+    Returns
+    -------
+    dict_name_ppiList : dict
+        Dictionary of protein associated ppi, protein name as key and list of assicated ppi as value
     """
     dict_name_ppiList = {}
     with open(ppi_csv, "r") as csv_file:
@@ -45,6 +67,23 @@ def load_ppi(ppi_csv) -> dict:
     return dict_name_ppiList
 
 def load_ppi_N2_format(ppi_csv) -> dict:
+    """
+    Load ppi csv file, but keep only a ppi if at leat 2 times
+    csv format : 
+    ppi_uniprot, ppi_name, my_prot_name
+    return a dict
+    { my_prot_name : [ppi list]}
+    
+    Parameters
+    ----------
+    ppi_csv : str
+        Name of a ppi file in csv format (ppi_uniprot, ppi_name, my_prot_name)
+        
+    Returns
+    -------
+    dict_name_ppiList : dict
+        Dictionary of protein associated ppi, protein name as key and list of assicated ppi as value
+    """
     dict_name_ppiList = {}
     with open(ppi_csv, "r") as csv_file:
         for line in csv_file:
@@ -67,6 +106,16 @@ def load_ppi_N2_format(ppi_csv) -> dict:
 def clean_from_uniq_ppi(dict_name_ppiList) -> dict:
     """
     Keep only ppi if there is at least 2 proteins that shares this ppi
+    
+    Parameters
+    ----------
+    dict_name_ppiList : dict
+        Dictionary of protein associated ppi, protein name as key and list of assicated ppi as value
+        
+    Returns
+    -------
+    uniq_dict_name_ppiList : dict
+        Filtered dictionary of protein associated ppi, protein name as key and list of assicated ppi as value
     """
     all_ppi_list = []
     for name, ppi_list in dict_name_ppiList.items():
@@ -80,7 +129,17 @@ def clean_from_uniq_ppi(dict_name_ppiList) -> dict:
 def load_refseq_from_fasta(fasta_file) -> list:
     """
     Read fasta file and extract proper refseq list from it
-    Return thema as a list
+    Return them as a list
+    
+    Parameters
+    ----------
+    fasta_file : str
+        Name of a fasta file, with formated header and refseq in before a '_' (e.g., >XP00001.1_somethingElse)
+        
+    Returns
+    -------
+    refseq_list : list
+        List of refseq (str)
     """
     refseq_list = []
     with open(fasta_file, "r") as f_file:
@@ -96,6 +155,17 @@ def write_leaf_csv(dict_name_ppiList, dict_name_refseq, refseq_interest, filenam
     write only ppi of proteins that are in the fasta of interest
     csv format ; 
     refseq, ppi1|ppi2|ppi3
+    
+    Parameters
+    ----------
+    dict_name_ppiList : dict
+        Dictionary of protein associated ppi, protein name as key and list of assicated ppi as value
+    dict_name_refseq : dict
+        Dictionary of alias name, protein name as key and associated refseq as value
+    refseq_interest : list
+        List of refseq (str)
+    filename : str
+        Name of the output file, csv format
     """
     with open(filename, "w+") as csv_file:
         for name, ppiList in dict_name_ppiList.items():

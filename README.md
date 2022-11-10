@@ -20,7 +20,7 @@ An original approach to characterize functional motifs based on:
 
 ### To use on you own data :
 
-```python3 phylocharmod.phylocharmod.py```
+```python3 phylocharmod/phylocharmod.py```
 
 (see ```--help``` for details)
 

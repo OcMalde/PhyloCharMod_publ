@@ -1,4 +1,6 @@
-# Functions for programs call of the basics MSA / phylogenetic tools
+"""
+Functions for external program calls
+"""
 
 import os
 import shutil
@@ -23,6 +25,18 @@ config.readfp(codecs.open(config_file, "r", "utf-8-sig"))
 def msa(fasta_file) -> tuple:
     """
     Launch a multi sequences alignement
+    
+    Parameters
+    ----------
+    fasta_file : str
+        Name of a fasta file
+        
+    Returns
+    -------
+    process : process object
+        Process object to track
+    out_fn : str
+        Name of the output file
     """
     out_fn = Path(f"{fasta_file.parents[0]}/muscle_{fasta_file.stem}.fasta").resolve()
     if config['ENV']['MUSCLE']:
@@ -42,6 +56,16 @@ def msa(fasta_file) -> tuple:
 def all_msa(directory) -> tuple:
     """
     Alignement for all the fasta_file of a given directory
+    
+    Parameters
+    ----------
+    directory : str
+        Name of a directory with input fasta files
+        
+    Returns
+    -------
+    process_list : list
+        List of all process object to track
     """
     process_list = []
     for filename in Path(directory).iterdir():
@@ -54,6 +78,22 @@ def all_msa(directory) -> tuple:
 def trimal(msa_fasta, gt="0.9", cons="05") -> tuple:
     """
     Colonns selection of a MSA using trimal
+    
+    Parameters
+    ----------
+    msa_fasta : str
+        Name of a MSA file in fasta format
+    gt : str, optional
+        Parameter gt of trimal (default is '0.9')
+    cons : str, optional
+        Parameter cons of trimal (default is '05')
+        
+    Returns
+    -------
+    process : process object
+        Process object to track
+    out_fn : str
+        Name of the output file
     """
     out_fn = Path(f"{msa_fasta.parents[0]}/trimal_{msa_fasta.stem}.fasta").resolve()
     if config['ENV']['TRIMAL']:
@@ -74,6 +114,20 @@ def trimal(msa_fasta, gt="0.9", cons="05") -> tuple:
 def phylo(msa_fasta, d="aa") -> tuple:
     """
     Phylogenetic inference of a given msa_file
+    
+    Parameters
+    ----------
+    msa_fasta : str
+        Name of a MSA file in fasta format
+    d : str, optional
+        Parameter d, data type of phyML (default is 'aa')
+        
+    Returns
+    -------
+    process : process object
+        Process object to track
+    out_fn : str
+        Name of the output file
     """
     node = []
     with open(msa_fasta, "r") as f_file:
@@ -108,6 +162,16 @@ def phylo(msa_fasta, d="aa") -> tuple:
 def all_phylo(directory) -> tuple:
     """
     Phylogenetic inference for all the msa_file of a given directory
+    
+    Parameters
+    ----------
+    directory : str
+        Name of a directory with input MSA fasta files
+        
+    Returns
+    -------
+    process_list : list
+        List of all process object to track
     """
     process_list = []
     for filename in Path(directory).iterdir():
@@ -120,6 +184,16 @@ def all_phylo(directory) -> tuple:
 def all_msa_phylo(directory) -> tuple:
     """
     Alignement for all the fasta_file of a given directory
+    
+    Parameters
+    ----------
+    directory : str
+        Name of a directory with input fasta files
+        
+    Returns
+    -------
+    process_list : list
+        List of all process object to track
     """
     process_list = []
     for filename in Path(directory).iterdir():
@@ -140,6 +214,24 @@ def compute_branch_length(msa_fasta, treefix_tree, d="aa", o="lr") -> tuple:
     """
     Use maximum likelihood compute branch length of a fixed topology tree
     (based on the initial MSA)
+    
+    Parameters
+    ----------
+    msa_fasta : str
+        Name of a MSA file in fasta format
+    treefix_tree : str
+        Name of treefixed tree file, in newick format
+    d : str, optional
+        Parameter d, data type of phyML (default is 'aa')
+    o : str, optional
+        Parameter o of phyML (default is 'lr')
+        
+    Returns
+    -------
+    process : process object
+        Process object to track
+    out_fn : str
+        Name of the output file
     """
     node = []
     with open(msa_fasta, "r") as f_file:
@@ -175,6 +267,26 @@ def segmentation(fasta_file, q="2", m="25", M="40", t="7") -> tuple:
     """
     Module segmentation using paloma-2 (partial local multiple alignment)
     Output file being the .agraph file (yaml format)
+    
+    Parameters
+    ----------
+    fasta_file : str
+        Name of a file in fasta format
+    q : str, optional
+        Parameter q of paloma-2 (default is '2')
+    m : str, optional
+        Parameter m of paloma-2 (default is '25')
+    M : str, optional
+        Parameter M of paloma-2 (default is '40')
+    t : str, optional
+        Parameter t of paloma-2 (default is '7')
+        
+    Returns
+    -------
+    process : process object
+        Process object to track
+    out_fn : str
+        Name of the output file
     """
     out_fn = Path(f"{fasta_file.stem}_t{t}m{m}M{M}_q{q}.agraph").resolve()
     if config['ENV']['PALOMA-2']:
@@ -197,6 +309,16 @@ def segmentation(fasta_file, q="2", m="25", M="40", t="7") -> tuple:
 def modules_fasta(ms_output) -> str:
     """
     Create a directory containing modules fasta file, for a given paloma output file
+    
+    Parameters
+    ----------
+    ms_output : str
+        Name of a paloma output file (e.g., agraph, oplma, dot)
+        
+    Returns
+    -------
+    module_directory : str
+        Name of the output directory, containing module files in fasta format (aligned, no gaps)
     """
     module_directory = Path(f"{ms_output.parents[0]}/modules_{ms_output.stem}").resolve()
     if not os.path.exists(module_directory):
@@ -229,6 +351,30 @@ def modules_fasta(ms_output) -> str:
 def treefix(msa_fasta, phylo_tree, species_tree, A=".fasta", model="PROTGAMMAJTT", V="0", niter="100") -> tuple:
     """
     Correction of a given tree, using a guide tree
+    
+    Parameters
+    ----------
+    msa_file : str
+        Name of a MSA file in fasta format
+    phylo_tree : str
+        Name of a gene (from MSA file) tree file in newick format
+    species_tree : str
+        Name of a corresponding species tree file in newick format
+    A : str, optional
+        Parameter A of treeFix, type of data (default is '.fasta')
+    model : str, optional
+        Parameter to choose model for treeFix (default is 'PROTGAMMAJTT')
+    V : str, optional
+        Parameter V (Verbose) of treeFix (default is '0')
+    niter : str, optional
+        Parameter niter (number of iterations) of treeFix (default is '100')
+        
+    Returns
+    -------
+    process : process object
+        Process object to track
+    out_fn : str
+        Name of the output file
     """
     treefix_dir = Path(f"{phylo_tree.parents[0]}/{phylo_tree.stem}_treefix_dir").resolve()
     if not os.path.exists(treefix_dir):
@@ -261,6 +407,18 @@ def make_smap(directory, specie_tree) -> str:
     """
     Read all the trees in the directory, make them binaries, then write all their mappings
     in the smap file
+    
+    Parameters
+    ----------
+    directory : str
+        Name of the input directory, containing tree files in newick format
+    species_tree : str
+        Name of a corresponding species tree file in newick format
+        
+    Returns
+    -------
+    outName : str
+        Name of the output file, smap file (gene_node_name    sp_node_name)
     """
     outName = Path(f"{directory.parents[0]}/{directory.stem}.smap").resolve()
     smapFile = open(outName, "w+")
@@ -297,6 +455,22 @@ def make_smap(directory, specie_tree) -> str:
 def pastml(gene_tree, pastml_csv, sep=',') -> tuple:
     """
     Run pastML
+    
+    Parameters
+    ----------
+    gene_tree : str
+        Name of a gene tree file in newick format
+    pastml_csv : str
+        Name of a annotation file (pastML ready) in csv format
+    sep : str, optional
+        Parameter sep (seperator) of PastML (default is ',')
+        
+    Returns
+    -------
+    process : process object
+        Process object to track
+    out_fn : str
+        Name of the output file
     """
     out_fn = Path(f"{pastml_csv.parents[0]}/{pastml_csv.stem}_combined_ancestral_states.tab").resolve()
     if config['ENV']['PASTML']:
@@ -318,6 +492,22 @@ def pastml(gene_tree, pastml_csv, sep=',') -> tuple:
 def seadog_md(species_tree, gene_tree, path_modules_tree) -> tuple:
     """
     Make a DGS phylogenetic reconciliation, using SEADOG-MD
+    
+    Parameters
+    ----------
+    species_tree : str
+        Name of a species tree file in newick format with leaves formated to be SEADOG-MD ready
+    gene_tree : str
+        Name of a gene tree file in newick format with leaves formated to be SEADOG-MD ready
+    path_modules_tree : str
+        Name of a txt file with the paths of all module tree files (each with leaves formated to be SEADOG-MD ready)
+        
+    Returns
+    -------
+    process : process object
+        Process object to track
+    out_fn : str
+        Name of the output file
     """
     out_fn = Path(f"seadogMD_{gene_tree.stem.split('_')[-1].split('.')[0]}.output").resolve()
     gene_tree_directory = Path(f"{species_tree.parents[0]}/gene_tree_{gene_tree.stem.split('.')[0]}").resolve()
@@ -342,6 +532,18 @@ def seadog_md(species_tree, gene_tree, path_modules_tree) -> tuple:
 def known_domains(multi_fasta) -> tuple:
     """
     Search for known domains and motif on our proteins sequences of interests
+    
+    Parameters
+    ----------
+    multi_fasta : str
+        Name of a fasta file
+        
+    Returns
+    -------
+    process : process object
+        Process object to track
+    out_fn : str
+        Name of the output file
     """
     get_domains_program = f"{os.path.abspath(os.path.dirname(__file__))}/get_domains.py" 
     out_fn = Path(f"{multi_fasta.parents[0]}/domains_{multi_fasta.stem}.csv").resolve()

@@ -24,6 +24,25 @@ An original approach to characterize functional motifs based on:
 
 (see ```--help``` for details)
 
+```usage: phylocharmod.py [-h] [--output_directory OUTPUT_DIRECTORY] [--species_tree SPECIES_TREE] [--gene_tree GENE_TREE] [--plma_file PLMA_FILE] [--reconc_domains] multi_fasta_file leaf_functions_csv
+
+positional arguments:
+  multi_fasta_file      Multi fasta file, with specific formated header >RefSeq_taxid (ex : >XP_012810820.2_8364)
+  leaf_functions_csv    csv file containing for each of our sequence, the list of his functions (ex : XP_012810820.2, P59509 | P999999)
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --output_directory OUTPUT_DIRECTORY
+                        output directory name
+  --species_tree SPECIES_TREE
+                        Species tree to use as a support for the reconciliations (WARNING, must correspond to the taxid use in the other files !)
+  --gene_tree GENE_TREE
+                        Gene tree to use as a support for the pastML and DGS reconciliation inference (WARNING, must correspond to the sequences in the multi fasta file !)
+  --plma_file PLMA_FILE
+                        Paloma-2 output file (.agraph format, .dot, or .oplma format)
+  --reconc_domains      Do a DGS reconciliation with known modules (pfam / prosite)
+```
+
 ## Dependencies
 
 All these programs are necessary to run *PhyloCharMod*, and must be in ;

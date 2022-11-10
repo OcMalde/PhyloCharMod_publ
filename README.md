@@ -62,15 +62,15 @@ If not, their path must be specified in the config file ;
 
 #### Softwares
 
-[Muscle](http://www.drive5.com/muscle/) (version ), one of the best-performing multiple alignment programs, [Conda package](https://anaconda.org/bioconda/muscle)
+[Muscle](http://www.drive5.com/muscle/) (v3.8.31), one of the best-performing multiple alignment programs, [Conda package](https://anaconda.org/bioconda/muscle)
 
-[PhyML](https://github.com/stephaneguindon/phyml), maximum likelihood phylogenetic inference for the gene and the module trees, [Conda package](https://anaconda.org/bioconda/phyml)
+[PhyML](https://github.com/stephaneguindon/phyml) (v3.3.20190909), maximum likelihood phylogenetic inference for the gene and the module trees, [Conda package](https://anaconda.org/bioconda/phyml)
 
-[TreeFix](https://www.cs.hmc.edu/~yjw/software/treefix/), Statistically Informed Gene Tree Error Correction Using Species Trees, [Conda package](https://anaconda.org/OcMalde/treefix)
+[TreeFix](https://www.cs.hmc.edu/~yjw/software/treefix/) (v1.1.10), Statistically Informed Gene Tree Error Correction Using Species Trees, [Conda package](https://anaconda.org/OcMalde/treefix)
 
 [SEADOG-MD](https://compbio.engr.uconn.edu/software/seadog/), for DGS-reconciliation.
 
-[PastML](https://pastml.pasteur.fr/), for ancestral characters inference, [Pip package](https://pypi.org/project/pastml/)
+[PastML](https://pastml.pasteur.fr/) (v1.9.33), for ancestral characters inference, [Pip package](https://pypi.org/project/pastml/)
 
-
+[paloma-2](http://tools.genouest.org/tools/protomata/learn/) (v0.1), for sequence segmentation. 
 

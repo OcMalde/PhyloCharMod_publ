@@ -40,33 +40,17 @@ If not, their path must be specified in the config file ;
 
 [Bio](https://github.com/biopython/biopython), the Biopython Project is an international association of developers of freely available Python tools for computational molecular biology.
 
-#### Muscle
+#### Softwares
 
-[Muscle](http://www.drive5.com/muscle/), one of the best-performing multiple alignment programs.
+[Muscle](http://www.drive5.com/muscle/), one of the best-performing multiple alignment programs, [Conda package](https://anaconda.org/bioconda/muscle)
 
-[Conda package](https://anaconda.org/bioconda/muscle)
+[PhyML](https://github.com/stephaneguindon/phyml), maximum likelihood phylogenetic inference for the gene and the module trees, [Conda package](https://anaconda.org/bioconda/phyml)
 
-#### PhyML
-
-[PhyML](https://github.com/stephaneguindon/phyml), maximum likelihood phylogenetic inference for the gene and the module trees.
-
-[Conda package](https://anaconda.org/bioconda/phyml)
-
-#### TreeFix
-
-[TreeFix](https://www.cs.hmc.edu/~yjw/software/treefix/), Statistically Informed Gene Tree Error Correction Using Species Trees.
-
-[Conda package](https://anaconda.org/OcMalde/treefix)
-
-#### SEADOG-MD
+[TreeFix](https://www.cs.hmc.edu/~yjw/software/treefix/), Statistically Informed Gene Tree Error Correction Using Species Trees, [Conda package](https://anaconda.org/OcMalde/treefix)
 
 [SEADOG-MD](https://compbio.engr.uconn.edu/software/seadog/), for DGS-reconciliation.
 
-#### PastML
-
-[PastML](https://pastml.pasteur.fr/), for ancestral characters inference.
-
-[Pip package](https://pypi.org/project/pastml/)
+[PastML](https://pastml.pasteur.fr/), for ancestral characters inference, [Pip package](https://pypi.org/project/pastml/)
 
 
 

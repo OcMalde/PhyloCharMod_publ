@@ -24,7 +24,8 @@ An original approach to characterize functional motifs based on:
 
 (see ```--help``` for details)
 
-```usage: phylocharmod.py [-h] [--output_directory OUTPUT_DIRECTORY] [--species_tree SPECIES_TREE] [--gene_tree GENE_TREE] [--plma_file PLMA_FILE] [--reconc_domains] multi_fasta_file leaf_functions_csv
+```
+usage: phylocharmod.py [-h] [--output_directory OUTPUT_DIRECTORY] [--species_tree SPECIES_TREE] [--gene_tree GENE_TREE] [--plma_file PLMA_FILE] [--reconc_domains] multi_fasta_file leaf_functions_csv
 
 positional arguments:
   multi_fasta_file      Multi fasta file, with specific formated header >RefSeq_taxid (ex : >XP_012810820.2_8364)
@@ -45,7 +46,7 @@ optional arguments:
 
 ## Dependencies
 
-All these programs are necessary to run *PhyloCharMod*, and must be in ;
+All these programs are mandatory to run *PhyloCharMod*, and must be in ;
 ```/usr/local/bin/```
 If not, their path must be specified in the config file ;
 ```phylocharmod/config.txt```
@@ -61,7 +62,7 @@ If not, their path must be specified in the config file ;
 
 #### Softwares
 
-[Muscle](http://www.drive5.com/muscle/), one of the best-performing multiple alignment programs, [Conda package](https://anaconda.org/bioconda/muscle)
+[Muscle](http://www.drive5.com/muscle/) (version ), one of the best-performing multiple alignment programs, [Conda package](https://anaconda.org/bioconda/muscle)
 
 [PhyML](https://github.com/stephaneguindon/phyml), maximum likelihood phylogenetic inference for the gene and the module trees, [Conda package](https://anaconda.org/bioconda/phyml)
 

@@ -43,6 +43,16 @@ optional arguments:
                         Paloma-2 output file (.agraph format, .dot, or .oplma format)
   --reconc_domains      Do a DGS reconciliation with known modules (pfam / prosite)
 ```
+### To build a sequence dataset based on orthogroups
+
+You can use as input any fasta file with ortholog and paralog sequences, as long as their headers are formatted. But we propose a sequence dataset building based on orthogroups from the [OrthoFinder](https://github.com/davidemms/OrthoFinder) tool. As a prerequisite, you will need to select a set of species (and one assembly per species) and to have: 
+- The ```Orthgroup.tsv``` file, computed with OrthoFinder on the proteomes of the selected assemblies of the selected species (to do so, run ```orthofinder -f <directory with all assemblie proteomes in fasta>```).
+- A directory containing the description in ```.gff``` of the selected assemblies (e.g., ```GCF_000002035.6.gff```).
+- A ```.csv``` file with taxid and species name associations (e.g., ```7955,Danio rerio```).
+- A ```.csv``` file with taxid and assembly name associations (e.g., ```7955,GCF_000002035```)
+
+
+
 
 ## Dependencies
 

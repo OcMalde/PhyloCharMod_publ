@@ -48,8 +48,44 @@ optional arguments:
 You can use as input any fasta file with ortholog and paralog sequences, as long as their headers are formatted. But we propose a sequence dataset building based on orthogroups from the [OrthoFinder](https://github.com/davidemms/OrthoFinder) tool. As a prerequisite, you will need to select a set of species (and one assembly per species) and to have: 
 - The ```Orthgroup.tsv``` file, computed with OrthoFinder on the proteomes of the selected assemblies of the selected species (to do so, run ```orthofinder -f <directory with all assemblie proteomes in fasta>```).
 - A directory containing the description in ```.gff``` of the selected assemblies (e.g., ```GCF_000002035.6.gff```).
-- A ```.csv``` file with taxid and species name associations (e.g., ```7955,Danio rerio```).
-- A ```.csv``` file with taxid and assembly name associations (e.g., ```7955,GCF_000002035```)
+- A ```assoc_taxid_spName.csv``` file with taxid and species name associations (e.g., ```7955,Danio rerio```).
+- A ```assoc_taxid_assembly.csv``` file with taxid and assembly name associations (e.g., ```7955,GCF_000002035```).
+- A ```my_protein.txt``` file with refseq of the proteins of interest to study (one refseq per line). 
+
+To build your own dataset:
+
+0. Cluster the proteomes in orthogroups with the ```OrthoFinder```software.
+
+1. Select orthogroups with at least one protein of interest, with ```python3 phylocharmod/myOrthogroups_fasta.py```.
+```
+usage: myOrthogroups_fasta.py [-h] [--download] orthogroups_file myProtein_file assocF_taxid_sp
+
+positional arguments:
+  orthogroups_file  csv file containing the orthogroups from an orthofinder analysis
+  myProtein_file    text file containing the ncbi id of the our protein of interest
+  assocF_taxid_sp   association file : taxid, specieName
+
+optional arguments:
+  -h, --help        show this help message and exit
+  --download        download proteins sequences of all the proteins in our orthogroups of interest
+```
+With the ```--download``` argument, a fasta directory will be build, containing all sequences of the proteins in the selected orthogroups (i.e., the one containing the proteins of interest).
+
+2. Regroup the protein by gene, based on genomic annotation (gff) and keep only the longest isoform for each gene, with ```phylocharmod/gff_regroup_iso_locus.py```.
+
+```
+usage: gff_regroup_iso_locus.py [-h] [--fasta_directory FASTA_DIRECTORY] [--assoc_file ASSOC_FILE] [--gff_directory GFF_DIRECTORY]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  --fasta_directory FASTA_DIRECTORY
+                        Directory containing proteins fasta selection files, name in the format selec_taxid.fasta
+  --assoc_file ASSOC_FILE
+                        .csv association file (taxid, db_name)
+  --gff_directory GFF_DIRECTORY
+                        Directory containing genome at the gff format (filename must contains db_name of the assoc_file)
+```
+
 
 
 

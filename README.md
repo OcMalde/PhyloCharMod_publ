@@ -71,7 +71,7 @@ optional arguments:
 ```
 With the ```--download``` argument, a fasta directory will be build, containing all sequences of the proteins in the selected orthogroups (i.e., the one containing the proteins of interest).
 
-2. Regroup the protein by gene, based on genomic annotation (gff) and keep only the longest isoform for each gene, with ```phylocharmod/gff_regroup_iso_locus.py```.
+2. Regroup the protein by gene, based on genomic annotation (gff) and keep only the longest isoform for each gene, with ```python3 phylocharmod/gff_regroup_iso_locus.py```.
 
 ```
 usage: gff_regroup_iso_locus.py [-h] [--fasta_directory FASTA_DIRECTORY] [--assoc_file ASSOC_FILE] [--gff_directory GFF_DIRECTORY]

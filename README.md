@@ -27,11 +27,12 @@ After installing [Docker](https://www.docker.com/get-started/), you can pull our
 
 #### Input: 
 1. ```<sequences.fasta>```:
+   
     Header must follow the format: ```>SeqID_taxid```, where SeqID is the unique sequence identifiant and taxid is the species ncbi taxid (e.g., ```>NP031426.2_10090```)
    
     See [this file](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/214.fasta) for an exemple
    
-    Avoid all specific character in the header (```|  , ` " : ; ```) and only use ```_```as separator
+    Avoid all specific character in the header (```|  , ( ) ` " : ; ```) and only use ```_``` as the separator
    
 3. ```<annotations.csv>```:
 

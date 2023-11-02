@@ -12,7 +12,7 @@ The process accepts protein sequences and their associated annotations as input.
 
 ![Data recuperation](img/method.png)
 
-For a more detailed explanation of the methodology, refer to the following article [Dennler et al. 2023](https://journals.plos.org/ploscompbiol/article/authors?id=10.1371/journal.pcbi.1011404), or the PhD thesis (only [available in French](https://www.theses.fr/2022REN1B079)).
+For a more detailed explanation of the methodology, refer to the following article [[Dennler et al. 2023]](https://journals.plos.org/ploscompbiol/article/authors?id=10.1371/journal.pcbi.1011404), or the following PhD thesis (only [available in French](https://www.theses.fr/2022REN1B079)).
 
 ## Usage
 

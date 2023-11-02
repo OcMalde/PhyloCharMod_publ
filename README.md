@@ -1,14 +1,18 @@
 # PhyloCharMod (publication data)
 Scripts and data for publication
 
-## Phylogenetic prediction of functional sequence modules
+## Phylogenetic Prediction of Functional Sequence Modules
 
-An original approach to characterize functional motifs based on:
+Introducing an original approach to characterizing functional motifs. This methodology encompasses:
 1. Detection of conserved sequence modules (using Partial Local Multiple Alignment)
 2. Phylogenetic inference of species/genes/modules/functions evolutionary histories
 3. Identification of co-appearances of modules and functions
 
+The process accepts protein sequences and their associated annotations as input. It then returns the presence of conserved sequence modules, along with their associated annotations, across different ancestral genes.
+
 ![Data recuperation](img/method.png)
+
+For a more detailed explanation of the methodology, refer to the following article [Dennler et al. 2023](https://journals.plos.org/ploscompbiol/article/authors?id=10.1371/journal.pcbi.1011404), or the PhD thesis (only [available in French](https://www.theses.fr/2022REN1B079)).
 
 ## Usage
 

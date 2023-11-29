@@ -133,7 +133,7 @@ optional arguments:
                         Directory containing genome at the gff format (filename must contains db_name of the assoc_file)
 ```
 
-Example for ```<orthogroup_dir>`` (computed on previous step):
+Example for ```<orthogroup_dir>``` (computed on previous step):
 ```docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/gff_regroup_iso_locus.py --fasta_directory <orthogroup_dir> --assoc_file /data_9sp/assocF_taxid_dbnt.csv --gff_directory /data_9sp/gff```
 The fasta file containing only the longest sequence by gene will be written in ```<orthogroup_dir>/isoforms_per_locus/longest_isoform.fasta``` 
 

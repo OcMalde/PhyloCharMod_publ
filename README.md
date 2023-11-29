@@ -19,11 +19,15 @@ For a more detailed explanation of the methodology, refer to the following artic
 For ease of use, considering the various software and dependencies required, we strongly recommend using our Docker image. 
 After installing [Docker](https://www.docker.com/get-started/), you can pull our Docker image using the following command:
 
-```docker pull ghcr.io/ocmalde/phylocharmod:0.1```
+```
+docker pull ghcr.io/ocmalde/phylocharmod:0.1
+```
 
 ### Run the Docker Image
 
-```docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/phylocharmod.py <sequences.fasta> <annotations.csv>```
+```
+docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/phylocharmod.py <sequences.fasta> <annotations.csv>
+```
 
 #### Input: 
 1. ```<sequences.fasta>```:
@@ -116,7 +120,9 @@ optional arguments:
 With the ```--download``` argument, a fasta directory will be build, containing all sequences of the proteins in the selected orthogroups (i.e., the one containing the proteins of interest).
 
 Example for a file ```<refseqID.txt>``` (simply one refseq ID by line) using pre-computed orthogroups for 9 species: 
-```docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 /phylocharmod/myOrthogroups_fasta.py /data_9sp/Orthogroups.tsv <refseqID.txt>  /data_9sp/assocF_taxid_spName.csv --download```
+```
+docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 /phylocharmod/myOrthogroups_fasta.py /data_9sp/Orthogroups.tsv <refseqID.txt>  /data_9sp/assocF_taxid_spName.csv --download
+```
 
 #### 2. Regroup the protein by gene, based on genomic annotation (gff) and keep only the longest isoform for each gene, with ```python3 phylocharmod/gff_regroup_iso_locus.py```.
 
@@ -134,7 +140,9 @@ optional arguments:
 ```
 
 Example for ```<orthogroup_dir>``` (computed on previous step):
-```docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/gff_regroup_iso_locus.py --fasta_directory <orthogroup_dir> --assoc_file /data_9sp/assocF_taxid_dbnt.csv --gff_directory /data_9sp/gff```
+```
+docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/gff_regroup_iso_locus.py --fasta_directory <orthogroup_dir> --assoc_file /data_9sp/assocF_taxid_dbnt.csv --gff_directory /data_9sp/gff
+```
 The fasta file containing only the longest sequence by gene will be written in ```<orthogroup_dir>/isoforms_per_locus/longest_isoform.fasta``` 
 
 ## Dependencies

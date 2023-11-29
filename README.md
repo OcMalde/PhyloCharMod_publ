@@ -23,7 +23,7 @@ After installing [Docker](https://www.docker.com/get-started/), you can pull our
 
 ### Run the Docker Image
 
-```docker run --rm phylocharmod python3 phylocharmod.py <sequences.fasta> <annotations.csv>```
+```docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/phylocharmod.py <sequences.fasta> <annotations.csv>```
 
 #### Input: 
 1. ```<sequences.fasta>```:

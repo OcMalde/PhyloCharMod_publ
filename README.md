@@ -144,9 +144,15 @@ docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 pyth
 ```
 The fasta file containing only the longest sequence by gene will be written in ```<orthogroup_dir>/isoforms_per_locus/longest_isoform.fasta``` 
 
-### Standalone Modules
+## Standalone Modules
 
 (coming soon)
+
+All the different softwares [included softwares](https://github.com/OcMalde/PhyloCharMod_publ/tree/main#softwares) are usable using the Docker image.
+For example, paloma-2 can be used with:
+```
+docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 paloma-D --help
+``` 
 
 ## Dependencies
 
@@ -154,15 +160,6 @@ All these programs are mandatory to run *PhyloCharMod*, and must be in ;
 ```/usr/local/bin/```
 If not, their path must be specified in the config file ;
 ```phylocharmod/config.txt```
-
-#### Python3 packages
-
-[ETE Toolkit](http://etetoolkit.org/), a python3 framework for the analysis and visualisation of trees.
-
-[Six]()
-```pip install six```
-
-[Bio](https://github.com/biopython/biopython), the Biopython Project is an international association of developers of freely available Python tools for computational molecular biology.
 
 #### Softwares
 

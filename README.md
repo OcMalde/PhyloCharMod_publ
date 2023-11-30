@@ -55,10 +55,6 @@ docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 pyth
 
 ## Advanced Usage
 
-
-
-## Usage
-
 ### To replicate publication results :
 
 ```cd data/min5_human_214_t10m1M20/```
@@ -105,7 +101,7 @@ To build your own dataset:
 
 #### 0. Cluster the proteomes in orthogroups with the ```OrthoFinder```software.
 
-If you are using the Docker image, pre-computed orthogroups and all associated file for 9 species (*7955 - Danio rerio; 9606 - Homo sapiens; 9913 - Bos taurus; 7719 - Ciona intestinalis; 10090 - Mus musculus; 7227 - Drosophila melanogaster; 8364 - Xenopus tropicalis; 6239 - Caenorhabditis elegans; 9031 - Gallus gallus*) are available n the image directory: ```/data_9sp```
+If you are using the Docker image, pre-computed orthogroups and all associated file for 9 species (*7955 - Danio rerio; 9606 - Homo sapiens; 9913 - Bos taurus; 7719 - Ciona intestinalis; 10090 - Mus musculus; 7227 - Drosophila melanogaster; 8364 - Xenopus tropicalis; 6239 - Caenorhabditis elegans; 9031 - Gallus gallus*) are available in the image directory: ```/data_9sp```
 
 #### 1. Select orthogroups with at least one protein of interest, with ```python3 phylocharmod/myOrthogroups_fasta.py```.
 ```
@@ -147,6 +143,10 @@ Example for ```<orthogroup_dir>``` (computed on previous step):
 docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/gff_regroup_iso_locus.py --fasta_directory <orthogroup_dir> --assoc_file /data_9sp/assocF_taxid_dbnt.csv --gff_directory /data_9sp/gff
 ```
 The fasta file containing only the longest sequence by gene will be written in ```<orthogroup_dir>/isoforms_per_locus/longest_isoform.fasta``` 
+
+### Standalone Modules
+
+(coming soon)
 
 ## Dependencies
 

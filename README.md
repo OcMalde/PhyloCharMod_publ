@@ -48,7 +48,10 @@ docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 pyth
 
    Refer to [this file](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/leaf_Manual_214.csv) for an exemple
 
-Output:
+Example with test files provided in the Docker image:
+```
+docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/phylocharmod.py /test_dir/712buddy37seq.fasta /test_dir/leaf_Manual_712.csv
+```
 
 ## Advanced Usage
 

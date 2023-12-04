@@ -1,5 +1,5 @@
-# PhyloCharMod (publication data)
-Scripts and data for publication
+# PhyloCharMod
+*Scripts and data for publication & whole pipeline Docker image*
 
 ## Phylogenetic Prediction of Functional Sequence Modules
 
@@ -12,7 +12,11 @@ The process accepts protein sequences and their associated annotations as input.
 
 ![Data recuperation](img/method.png)
 
-For a more detailed explanation of the methodology, refer to the following article [[Dennler et al. 2023]](https://journals.plos.org/ploscompbiol/article/authors?id=10.1371/journal.pcbi.1011404), or the following PhD thesis (only [available in French](https://www.theses.fr/2022REN1B079)).
+For a more detailed explanation of the methodology, refer to the following article [[Dennler et al. 2023]](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011404), or the following PhD thesis (only [available in French](https://www.theses.fr/2022REN1B079)).
+
+## Citation
+
+Dennler O.,Coste F,Blanquart S.,Belleannée C.,Théret T., (2023). [Phylogenetic inference of the emergence of sequence modules and protein-protein interactions in the ADAMTS-TSL family](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011404). PLOS Computational Biology.
 
 ## Simple Usage
 ### Docker Installation

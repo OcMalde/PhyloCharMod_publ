@@ -43,7 +43,7 @@ Example with test files provided in the Docker image (you need to connect to the
 cd test_dir/ && python3 ../phylocharmod/phylocharmod.py 712buddy37seq.fasta leaf_Manual_712.csv
 ```
 
-If you already made a container, you can obtain its ```<CONTAINER ID>``` using ```docker ps -a```
+If you already made a container, you can obtain its ```<CONTAINER ID>``` using ```docker ps -a```.
 Using the ```<CONTAINER ID>```, you can connect to the existing container with:
 ```
 docker start <CONTAINER ID>

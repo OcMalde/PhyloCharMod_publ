@@ -16,7 +16,7 @@ For a more detailed explanation of the methodology, refer to the following artic
 
 ## Citation
 
-Dennler O.,Coste F,Blanquart S.,Belleannée C.,Théret T., (2023). [Phylogenetic inference of the emergence of sequence modules and protein-protein interactions in the ADAMTS-TSL family](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011404). PLOS Computational Biology.
+Dennler, O.,Coste, F.,Blanquart, S.,Belleannée, C.,Théret, T., (2023). [Phylogenetic inference of the emergence of sequence modules and protein-protein interactions in the ADAMTS-TSL family](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1011404). PLOS Computational Biology.
 
 ## Simple Usage
 ### Docker Installation

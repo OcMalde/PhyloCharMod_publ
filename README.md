@@ -38,6 +38,11 @@ python3 /phylocharmod/phylocharmod.py <sequences.fasta> <annotations.csv>
 ```
 To quit it, simply type ```exit```
 
+Example with test files provided in the Docker image (you need to connect to the container first):
+```
+cd test_dir/ && python3 ../phylocharmod/phylocharmod.py 712buddy37seq.fasta leaf_Manual_712.csv
+```
+
 If you already made a container, you can obtain its ```<CONTAINER ID>``` using ```docker ps -a```
 Using the ```<CONTAINER ID>```, you can connect to the existing container with:
 ```
@@ -72,23 +77,14 @@ docker cp <CONTAINER ID>:/path/in/container/ /path/in/local
 
    Refer to [this file](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/leaf_Manual_214.csv) for an exemple
 
-Example with test files provided in the Docker image (you need to connect to the container first):
-```
-cd test_dir/ && python3 ../phylocharmod/phylocharmod.py 712buddy37seq.fasta leaf_Manual_712.csv
-```
 
 ## Advanced Usage
 
-### To replicate publication results :
-
-```cd data/min5_human_214_t10m1M20/```
-
-```python3 ../../phylocharmod/integrate_3phylo.py seadogMD_214.output gene_tree_214/214.tree --pastml_tab acs_dir_seadogMD_214_gene/pastml_seadogMD_214_gene_leaf_Manual_214_combined_ancestral_states.tab --domains_csv domains_214.csv --itol``` 
-
-### To use on you own data :
+### To use with your own data :
 
 ```python3 phylocharmod/phylocharmod.py```
 
+Pre-computed phylogenetic trees or/and paloma module decompositions can be use, as long as they respect the imposed header format.
 (see ```--help``` for details)
 
 ```
@@ -110,6 +106,14 @@ optional arguments:
                         Paloma-2 output file (.agraph format, .dot, or .oplma format)
   --reconc_domains      Do a DGS reconciliation with known modules (pfam / prosite)
 ```
+
+### To replicate publication results :
+
+```cd data/min5_human_214_t10m1M20/```
+
+```
+python3 /phylocharmod/integrate_3phylo.py seadogMD_214.output gene_tree_214/214.tree --pastml_tab acs_dir_seadogMD_214_gene/pastml_seadogMD_214_gene_leaf_Manual_214_combined_ancestral_states.tab --domains_csv domains_214.csv --itol
+``` 
 
 ### To build a sequence dataset based on orthogroups
 
@@ -170,8 +174,19 @@ The fasta file containing only the longest sequence by gene will be written in `
 
 ## Standalone Modules
 
-(coming soon)
+### Modules
+Specific [modules of the pipeline](https://github.com/OcMalde/PhyloCharMod_publ/tree/main/phylocharmod) can be executed independently (see their ```--help``` for all usage details).
 
+For example, to compute a phylogenetic tree using Muscle/Trimal/PhyML/Treefix: 
+```
+python3 /phylocharmod/gene_phylo.py <fasta_file> <species_tree>
+```
+To only compute the final intergration module:
+```
+python3 /phylocharmod/integrate_3phylo.py <seadogMD.output> <gene_tree.tree> --pastml_tab <pastml_seadogMD_combined_ancestral_states.tab> --domains_csv <domains.csv>
+```
+
+### Softwares
 All the different [included softwares](https://github.com/OcMalde/PhyloCharMod_publ/tree/main#softwares) are usable using the Docker image.
 For example, paloma-2 can be used with:
 ```

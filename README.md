@@ -46,10 +46,7 @@ cd test_dir/ && python3 ../phylocharmod/phylocharmod.py 712buddy37seq.fasta leaf
 If you already made a container, you can obtain its ```<CONTAINER ID>``` using ```docker ps -a```.
 Using the ```<CONTAINER ID>```, you can connect to the existing container with:
 ```
-docker start <CONTAINER ID>
-```
-```
-docker attach <CONTAINER ID>
+docker start <CONTAINER ID> && docker attach <CONTAINER ID>
 ```
 
 To use move file from/to the container, use:

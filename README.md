@@ -25,9 +25,33 @@ docker pull ghcr.io/ocmalde/phylocharmod:0.1
 
 ### Run the Docker Image
 
+First, you need to make a container and connect interactivly to it:
+
 ```
-docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/phylocharmod.py <sequences.fasta> <annotations.csv>
+docker run -it --entrypoint /bin/bash ghcr.io/ocmalde/phylocharmod:0.1 
 ```
+
+Then you can simply execute the whole pipeline using:
+
+```
+python3 /phylocharmod/phylocharmod.py <sequences.fasta> <annotations.csv>
+```
+To quit it, simply type ```exit```
+
+If you already made a container, you can obtain its ```<CONTAINER ID>``` using ```docker ps -a```
+Using the ```<CONTAINER ID>```, you can connect to the existing container with:
+```
+docker start <CONTAINER ID>
+```
+```
+docker attach <CONTAINER ID>
+```
+
+To use move file from/to the container, use:
+```
+docker cp <CONTAINER ID>:/path/in/container/ /path/in/local
+```
+
 
 #### Input: 
 1. ```<sequences.fasta>```:
@@ -48,9 +72,9 @@ docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 pyth
 
    Refer to [this file](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/leaf_Manual_214.csv) for an exemple
 
-Example with test files provided in the Docker image:
+Example with test files provided in the Docker image (you need to connect to the container first):
 ```
-docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 python3 /phylocharmod/phylocharmod.py /test_dir/712buddy37seq.fasta /test_dir/leaf_Manual_712.csv
+cd test_dir/ && python3 ../phylocharmod/phylocharmod.py 712buddy37seq.fasta leaf_Manual_712.csv
 ```
 
 ## Advanced Usage
@@ -153,6 +177,8 @@ For example, paloma-2 can be used with:
 ```
 docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 paloma-D --help
 ``` 
+Or simply: ```paloma-D --help``` if connected to a container
+
 
 ## Dependencies
 

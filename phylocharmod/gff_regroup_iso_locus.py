@@ -225,7 +225,7 @@ def write_fasta_directory(dict_taxid_dictlocus, dict_refseq_fasta, directory) ->
                 if len(sequence) > len(longest_iso[1]):
                     longest_iso = (header, sequence)
             all_para_file.write(f">{longest_iso[0]}\n{longest_iso[1]}\n")
-        locus_file.close()
+            locus_file.close()
     all_para_file.close()
     with open("locus_nbProt.csv", "w") as o_file:
         o_file.write(csv_str)

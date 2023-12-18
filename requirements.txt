@@ -1,0 +1,13 @@
+six==1.15.0
+numpy==1.21.2
+ete3==3.1.2
+pyyaml==5.4.1
+requests==2.24.0
+matplotlib==3.3.4
+natsort==8.0.2
+scipy==1.5.4
+pyparsing==2.4.7
+biopython==1.78
+ProDy==2.0
+dna-features-viewer==3.0.3
+pastml==1.9.41

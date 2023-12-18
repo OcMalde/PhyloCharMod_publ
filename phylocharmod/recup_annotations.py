@@ -243,7 +243,7 @@ def select_gene(dict_specie_geneList, refseq_interest_list) -> dict:
     """
     Select the gene containing our refseq of interests
     """
-    set_refseq = set(refseq_interest_list)
+    set_refseq = set([ref.split(".")[0] for ref in refseq_interest_list])
     # Init a selction dict
     select_dict_specie_geneList = {}
     # Iterate on the full dict

@@ -191,7 +191,7 @@ python3 /phylocharmod/integrate_3phylo.py <seadogMD.output> <gene_tree.tree> --p
 All the different [included softwares](https://github.com/OcMalde/PhyloCharMod_publ/tree/main#softwares) are usable using the Docker image.
 For example, paloma-2 can be used with:
 ```
-docker run -w $(pwd) -v $(pwd):$(pwd) --rm ghcr.io/ocmalde/phylocharmod:0.1 paloma-D --help
+docker start <CONTAINER ID> && docker exec <CONTAINER ID> /bin/bash -c ". ~/.bashrc && paloma-D --help && exit"
 ``` 
 Or simply: ```paloma-D --help``` if connected to a container
 

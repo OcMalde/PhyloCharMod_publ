@@ -59,7 +59,7 @@ docker cp <CONTAINER ID>:/path/in/container/ /path/in/local
 ```
 
 
-#### Input: 
+## Input: 
 1. ```<sequences.fasta>```:
    
     Each sequence header must adhere to the format: ```>SeqID_taxid```, where ```SeqID``` represents the unique sequence identifier and ```taxid``` is the NCBI species taxid (e.g., ```>NP031426.2_10090```)
@@ -78,9 +78,15 @@ docker cp <CONTAINER ID>:/path/in/container/ /path/in/local
 
    Refer to [this file](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/leaf_Manual_214.csv) for an example
 
-#### Output: 
-All output files will be contained in the newly built output_directory such as:
+## Output: 
+The main workflow output is the list of modules/annotations present/gained/lost at the different ancestral genes. This output is presented as a table in the file ```complete_functionChange_moduleChange.csv``` (Example [here](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/complete_functionChange_moduleChange_seadogMD_214.csv)). It is stronly advised to also look at the the final gene tree ```gene_tree/gene.tree``` to visualise the annotated gene nodes. Plus, all modules informations are available in ```modules_segm_dir/``` and enable to get module segments (sequences and positions) based on module names.
+
+For an interactive visualisation of these data, different itol files are generated in ```visuReconc/``` and compressed in ```visuReconc.zip``` for batch upload on itol.
+
+For all details, all outputs and working files will be available such as (see [this directory](https://github.com/OcMalde/PhyloCharMod_publ/tree/main/data/min5_human_214_t10m1M20) for an example)
 ```
+output_dir
+│ 
 ├── gene.fasta                                                    -----> The input fasta file
 ├── leaf_Manual.csv                                               -----> The input annotation file
 ├── gene.tree                                                     -----> The input gene tree file (if given as input)
@@ -94,10 +100,10 @@ All output files will be contained in the newly built output_directory such as:
 │   ├── pastml.csv                                                -----> The input annotation formated as a {0,1,?} matrix for pastML use
 │   ├── pastml_combined_ancestral_states.tab                      -----> pastML output regrouping all annotation ancestral states
 │   ├── seadog_gene.tree                                          -----> The "final" gene tree after treefix correction / internal node labelling by seadog mDGS reconciliation / branch length computing by PhyML
-│   ├── seadog_sp_gene_event.csv                                  -----> Gene nodes event from Species - Gene reconciliation (e.g., Gene duplication, Speciation)
+│   └── seadog_sp_gene_event.csv                                  -----> Gene nodes event from Species - Gene reconciliation (e.g., Gene duplication, Speciation)
 │
 ├── gene_tree
-│   ├── gene.tree                                                 -----> The "final" gene tree after treefix correction / internal node labelling by seadog mDGS reconciliation / branch length computing by PhyML
+│   └── gene.tree                                                 -----> The "final" gene tree after treefix correction / internal node labelling by seadog mDGS reconciliation / branch length computing by PhyML
 │
 ├── modules_segm_dir                                              -----> All modules decomposition files: paloma plma -> for all modules: module fasta -> PhyML tree -> treefix corrected tree
 │   ├── modules_t*m*M*_plma
@@ -113,7 +119,7 @@ All output files will be contained in the newly built output_directory such as:
 │   │   │   ├── B*.tree                                           -----> Module PhyML tree
 │   │   │   ├── B*.treefix.tree                                   -----> Module treefix corrected tree - "final"
 │   ├── gene.fasta                                                -----> The input fasta file
-│   ├── t*m*M*_plma.dot (or t*m*M*_plma.agraph)                   -----> The plma file (from input or computed by paloma)
+│   └── t*m*M*_plma.dot (or t*m*M*_plma.agraph)                   -----> The plma file (from input or computed by paloma)
 │
 ├── modules_paths_modules_t*m*M*_plma.txt                         -----> Define list of module trees to use as seadog input
 ├── seadog.output                                                 -----> Seadog mDGS output file
@@ -134,7 +140,7 @@ All output files will be contained in the newly built output_directory such as:
 │   ├── itolPopup.txt                                             -----> Gene nodes popup with module and annotation decriptions
 │   ├── itolSpGeneEvents.txt                                      -----> Gene - Species reconcilation events as symbols
 │   ├── itol_modules_PieGainsLost.txt                             -----> Number of modules gained / lost at each gene nodes as a pie charts
-│   ├── itol_ppi_PieGainsLost.txt                                 -----> Number of modules gained / lost at each gene nodes as a pie charts
+│   └── itol_ppi_PieGainsLost.txt                                 -----> Number of modules gained / lost at each gene nodes as a pie charts
 ├── visuReconc.zip                                                -----> All itol visualisation files compressed for itol batch upload
 │
 ├── species.tree                                                  -----> Species tree extracted from ncbi taxonomy

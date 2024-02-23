@@ -78,6 +78,74 @@ docker cp <CONTAINER ID>:/path/in/container/ /path/in/local
 
    Refer to [this file](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/leaf_Manual_214.csv) for an example
 
+#### Output: 
+All output files will be contained in the newly built output_directory such as:
+```
+├── acs_dir
+│   ├── results_pastml
+│   │   ├── marginal_probabilities.character_*
+│   │   ├── params.character_*
+│   ├── leaf.csv
+│   ├── pastml.csv
+│   ├── pastml_combined_ancestral_states.tab
+│   ├── seadog_gene.tree
+│   ├── seadog_sp_gene_event.csv
+├── gene_tree
+│   ├── gene.tree
+├── modules_segm_dir
+│   ├── modules_t*m*M*_plma
+│   │   ├── B*.fasta
+│   │   ├── B*.phylip
+│   │   ├── B*.phylip_phyml_stats.txt
+│   │   ├── B*.phylip_phyml_tree.txt
+│   │   ├── B*.tree
+│   │   ├── B*_treefix_dir.smap
+│   │   ├── B*_treefix_dir_treeToFixPath.txt
+│   │   ├── B*_treefix_dir
+│   │   │   ├── *.fasta
+│   │   │   ├── B*.tree
+│   │   │   ├── *.treefix.tree
+│   ├── gene.fasta
+│   ├── t*m*M*_plma.dot or (t*m*M*_plma.agraph)
+├── visuReconc
+│   ├── geneReconc_seadogMD_214.tree
+│   ├── itolAnnotPresence.txt
+│   ├── itolBarModulesNb.txt
+│   ├── itolDomains.txt
+│   ├── itolGOt.txt
+│   ├── itolModPresence.txt
+│   ├── itolModTransfer.txt
+│   ├── itolModulesPresent_G*_*_*_only_mod.txt
+│   ├── itolModulesThatChanged_G*_*_*_only_mod.txt
+│   ├── itolModules.txt
+│   ├── itolPopup.txt
+│   ├── itolSpGeneEvents.txt
+│   ├── itol_modules_PieGainsLost.txt
+│   ├── itol_ppi_PieGainsLost.txt
+├── visuReconc.zip
+├── gene.fasta
+├── leaf_Manual.csv
+├── gene.tree
+├── t*m*M*_plma.dot
+├── species.tree
+├── human_modules_compositions.csv
+├── ances_functionChange_moduleChange.csv
+├── ances_modulesChange.csv
+├── complete_functionChange_moduleChange.csv
+├── domains.csv
+├── functionChange_moduleChange_expand.csv
+├── functionChange_moduleChange.csv
+├── modulesChange.csv
+├── modulesCompo.csv
+├── modules_paths_modules_t*m*M*_plma.txt
+├── onlyAnc_functionChange_moduleChange_expand.csv
+├── seadog.output
+├── seadog_gene.tree
+├── seadog_sp_gene_event.csv
+├── specieGeneEvent_seadog.csv
+└──
+```
+
 
 ## Advanced Usage
 

@@ -79,9 +79,9 @@ docker cp <CONTAINER ID>:/path/in/container/ /path/in/local
    Refer to [this file](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/leaf_Manual_214.csv) for an example
 
 ## Output
-The main workflow output is the list of modules/annotations present/gained/lost at the different ancestral genes. This output is presented as a table in the file ```complete_functionChange_moduleChange.csv``` (Example [here](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/complete_functionChange_moduleChange_seadogMD_214.csv)). It is stronly advised to also look at the the final gene tree ```gene_tree/gene.tree``` to visualise the annotated gene nodes. Plus, all modules informations are available in ```modules_segm_dir/``` and enable to get module segments (sequences and positions) based on module names.
+The main workflow output is the list of modules/annotations present/gained/lost at the different ancestral genes. This output is presented as a table in the file ```complete_functionChange_moduleChange.csv``` (Example [here](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/complete_functionChange_moduleChange_seadogMD_214.csv)). It is strongly advised to also look at the the final gene tree ```gene_tree/gene.tree``` to visualise the annotated gene nodes. Plus, description of all modules are available in ```modules_segm_dir/``` and enable to get module segments (sequences and positions) based on module names.
 
-For an interactive visualisation of these data, different itol files are generated in ```visuReconc/``` and compressed in ```visuReconc.zip``` for batch upload on itol.
+For an interactive visualisation of these data, various iTOL files are generated in ```visuReconc/``` and compressed in ```visuReconc.zip``` for batch upload on iTOL.
 
 For all details, all outputs and working files will be available such as (see [this directory](https://github.com/OcMalde/PhyloCharMod_publ/tree/main/data/min5_human_214_t10m1M20) for an example)
 ```

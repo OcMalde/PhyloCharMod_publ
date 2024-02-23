@@ -81,69 +81,77 @@ docker cp <CONTAINER ID>:/path/in/container/ /path/in/local
 #### Output: 
 All output files will be contained in the newly built output_directory such as:
 ```
-├── acs_dir
-│   ├── results_pastml
+├── gene.fasta                                                    -----> The input fasta file
+├── leaf_Manual.csv                                               -----> The input annotation file
+├── gene.tree                                                     -----> The input gene tree file (if given as input)
+├── t*m*M*_plma.dot                                               -----> The input plma file (if given as input)
+│
+├── acs_dir                                                       -----> All ancestral scenario reconstruction files from pastML
+│   ├── results_pastml                                            -----> pastML outputs
 │   │   ├── marginal_probabilities.character_*
 │   │   ├── params.character_*
-│   ├── leaf.csv
-│   ├── pastml.csv
-│   ├── pastml_combined_ancestral_states.tab
-│   ├── seadog_gene.tree
-│   ├── seadog_sp_gene_event.csv
+│   ├── leaf.csv                                                  -----> The input annotation file
+│   ├── pastml.csv                                                -----> The input annotation formated as a {0,1,?} matrix for pastML use
+│   ├── pastml_combined_ancestral_states.tab                      -----> pastML output regrouping all annotation ancestral states
+│   ├── seadog_gene.tree                                          -----> The "final" gene tree after treefix correction / internal node labelling by seadog mDGS reconciliation / branch length computing by PhyML
+│   ├── seadog_sp_gene_event.csv                                  -----> Gene nodes event from Species - Gene reconciliation (e.g., Gene duplication, Speciation)
+│
 ├── gene_tree
-│   ├── gene.tree
-├── modules_segm_dir
+│   ├── gene.tree                                                 -----> The "final" gene tree after treefix correction / internal node labelling by seadog mDGS reconciliation / branch length computing by PhyML
+│
+├── modules_segm_dir                                              -----> All modules decomposition files: paloma plma -> for all modules: module fasta -> PhyML tree -> treefix corrected tree
 │   ├── modules_t*m*M*_plma
-│   │   ├── B*.fasta
-│   │   ├── B*.phylip
-│   │   ├── B*.phylip_phyml_stats.txt
-│   │   ├── B*.phylip_phyml_tree.txt
-│   │   ├── B*.tree
-│   │   ├── B*_treefix_dir.smap
-│   │   ├── B*_treefix_dir_treeToFixPath.txt
-│   │   ├── B*_treefix_dir
-│   │   │   ├── *.fasta
-│   │   │   ├── B*.tree
-│   │   │   ├── *.treefix.tree
-│   ├── gene.fasta
-│   ├── t*m*M*_plma.dot or (t*m*M*_plma.agraph)
-├── visuReconc
-│   ├── geneReconc_seadogMD_214.tree
-│   ├── itolAnnotPresence.txt
-│   ├── itolBarModulesNb.txt
-│   ├── itolDomains.txt
-│   ├── itolGOt.txt
-│   ├── itolModPresence.txt
-│   ├── itolModTransfer.txt
-│   ├── itolModulesPresent_G*_*_*_only_mod.txt
-│   ├── itolModulesThatChanged_G*_*_*_only_mod.txt
-│   ├── itolModules.txt
-│   ├── itolPopup.txt
-│   ├── itolSpGeneEvents.txt
-│   ├── itol_modules_PieGainsLost.txt
-│   ├── itol_ppi_PieGainsLost.txt
-├── visuReconc.zip
-├── gene.fasta
-├── leaf_Manual.csv
-├── gene.tree
-├── t*m*M*_plma.dot
-├── species.tree
-├── human_modules_compositions.csv
-├── ances_functionChange_moduleChange.csv
-├── ances_modulesChange.csv
-├── complete_functionChange_moduleChange.csv
-├── domains.csv
-├── functionChange_moduleChange_expand.csv
-├── functionChange_moduleChange.csv
-├── modulesChange.csv
-├── modulesCompo.csv
-├── modules_paths_modules_t*m*M*_plma.txt
-├── onlyAnc_functionChange_moduleChange_expand.csv
-├── seadog.output
-├── seadog_gene.tree
-├── seadog_sp_gene_event.csv
-├── specieGeneEvent_seadog.csv
-└──
+│   │   ├── B*.fasta                                              -----> A module fasta file
+│   │   ├── B*.phylip                                             -----> A module in phylip format
+│   │   ├── B*.phylip_phyml_stats.txt                             -----> PhyML output
+│   │   ├── B*.phylip_phyml_tree.txt                              -----> PhyML output
+│   │   ├── B*.tree                                               -----> PhyML output
+│   │   ├── B*_treefix_dir.smap                                   -----> Gene - Module nodes mapping
+│   │   ├── B*_treefix_dir_treeToFixPath.txt                      -----> Define treefix input
+│   │   ├── B*_treefix_dir                                        -----> treefix working directory
+│   │   │   ├── B*.fasta                                          -----> Module fasta file 
+│   │   │   ├── B*.tree                                           -----> Module PhyML tree
+│   │   │   ├── B*.treefix.tree                                   -----> Module treefix corrected tree - "final"
+│   ├── gene.fasta                                                -----> The input fasta file
+│   ├── t*m*M*_plma.dot (or t*m*M*_plma.agraph)                   -----> The plma file (from input or computed by paloma)
+│
+├── modules_paths_modules_t*m*M*_plma.txt                         -----> Define list of module trees to use as seadog input
+├── seadog.output                                                 -----> Seadog mDGS output file
+├── seadog_gene.tree                                              -----> Gene tree from seadog mDGS, with internal gene labelled
+├── seadog_sp_gene_event.csv (or specieGeneEvent_seadog.csv)      -----> Gene nodes event from Species - Gene reconciliation (e.g., Gene duplication, Speciation)
+│
+├── visuReconc                                                    -----> All itol visualisation files
+│   ├── geneReconc_seadog.tree                                    -----> The "final" gene tree after treefix correction / internal node labelling by seadog mDGS reconciliation / branch length computing by PhyML
+│   ├── itolAnnotPresence.txt                                     -----> Annotation presences in leaves as heatmap
+│   ├── itolModPresence.txt                                       -----> Module presences in leaves as heatmap
+│   ├── itolBarModulesNb.txt                                      -----> Module number in leaves as barplot
+│   ├── itolDomains.txt                                           -----> Domain decompositions as domain mosaics
+│   ├── itolGOt.txt                                               -----> Annotation presence as symbols
+│   ├── itolModTransfer.txt                                       -----> Module transfers as arrows
+│   ├── itolModulesPresent_G*_*_*_only_mod.txt                    -----> For each gene node * : all module segments in actual gene present at this * (ancestral) gene as domain mosaics (brown squares)
+│   ├── itolModulesThatChanged_G*_*_*_only_mod.txt                -----> For each gene node * : all module segments in actual gene gained at this * (ancestral) gene as domain mosaics (green squares)
+│   ├── itolModules.txt                                           -----> Module decompositions as domain mosaics
+│   ├── itolPopup.txt                                             -----> Gene nodes popup with module and annotation decriptions
+│   ├── itolSpGeneEvents.txt                                      -----> Gene - Species reconcilation events as symbols
+│   ├── itol_modules_PieGainsLost.txt                             -----> Number of modules gained / lost at each gene nodes as a pie charts
+│   ├── itol_ppi_PieGainsLost.txt                                 -----> Number of modules gained / lost at each gene nodes as a pie charts
+├── visuReconc.zip                                                -----> All itol visualisation files compressed for itol batch upload
+│
+├── species.tree                                                  -----> Species tree extracted from ncbi taxonomy
+├── domains.csv                                                   -----> Known domains/motifs from scans
+│
+├── modulesCompo.csv                                              -----> Lists of modules presents at each gene nodes
+├── modulesChange.csv                                             -----> Lists of modules gained / lost at each gene nodes
+│
+├── complete_functionChange_moduleChange.csv                      -----> Table of all annotations and modules gained / lost at each gene nodes (actual and ancestral)
+├── ances_functionChange_moduleChange.csv                         -----> Table of all annotations and modules gained / lost at each gene nodes (only ancestral)
+├── ances_modulesChange.csv                                       -----> Table of modules gained / lost at each gene nodes (only ancestral)
+│
+├── functionChange_moduleChange.csv                               -----> Table of modules gained / lost at each gene nodes where there is annotation changes (actual and ancestral)
+├── functionChange_moduleChange_expand.csv                        -----> Table of modules gained / lost at each gene nodes where there is annotation changes (actual and ancestral) with all module segment details in leaf
+└── onlyAnc_functionChange_moduleChange_expand.csv                -----> Table of modules gained / lost at each gene nodes where there is annotation changes (only ancestral) with all module segment details in leaf
+
+
 ```
 
 

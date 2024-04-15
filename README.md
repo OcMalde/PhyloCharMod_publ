@@ -78,6 +78,9 @@ docker cp <CONTAINER ID>:/path/in/container/ /path/in/local
 
    Refer to [this file](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/leaf_Manual_214.csv) for an example
 
+> :warning: **Important Notice: Default Execution and Gene Tree Input.** When running the analysis with the default settings, a default rooted tree will be generated. However, for optimal results, **it is strongly recommended to infer a properly rooted gene tree prior to analysis and use it as the input for the --gene_tree option**. The gene phylogenetic tree serves as a critical template for the entire analysis, thus it is essential that a reliable and accurately rooted gene tree is prepared and utilized.
+
+
 ## Output
 The main workflow output is the list of modules/annotations present/gained/lost at the different ancestral genes. This output is presented as a table in the file ```complete_functionChange_moduleChange.csv``` (Example [here](https://github.com/OcMalde/PhyloCharMod_publ/blob/main/data/min5_human_214_t10m1M20/complete_functionChange_moduleChange_seadogMD_214.csv)). It is strongly advised to also look at the the final gene tree ```gene_tree/gene.tree``` to visualise the annotated gene nodes. Plus, description of all modules are available in ```modules_segm_dir/``` and enable to get module segments (sequences and positions) based on module names.
 
